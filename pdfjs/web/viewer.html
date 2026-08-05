@@ -34,10 +34,11 @@ See https://github.com/adobe-type-tools/cmap-resources
     <link rel="stylesheet" href="viewer.css">
 
   <script src="viewer.mjs" type="module"></script>
-      <style>
+    <style>
           :root { --toolbar-height: 0px !important; }
-          .toolbar { display: none !important; }
-      </style>
+          .toolbar, #toolbarContainer { display: none !important; }
+          #viewerContainer { top: 0 !important; }
+    </style>
   </head>
 
   <body tabindex="0">
