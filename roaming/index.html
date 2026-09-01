@@ -1,39 +1,249 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Condicions Roaming - Nimbus Telecom</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-        }
-        .pagina {
-            display: block;
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            margin: 0 auto 8px auto;
-            background: #ffffff;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarifas Roaming - Nimbus Telecom</title>
+<style>
+  :root { --naranja:#E8A13C; --naranja-fuerte:#E8620C; --amarillo:#F6E88C; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; background:#fff; font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; color:#333; }
+  .contenedor { max-width:1200px; margin:0 auto; padding:20px 12px 40px; }
+  header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; }
+  h1 { font-size:1.7rem; font-weight:600; color:#444; margin:0; }
+  .fecha { color:var(--naranja-fuerte); font-weight:600; margin-top:6px; }
+  .sub { margin:6px 0 16px; color:#555; }
+  #buscador { width:100%; max-width:340px; padding:10px 14px; font-size:1rem; border:2px solid var(--naranja); border-radius:8px; margin-bottom:14px; }
+  #buscador:focus { outline:none; border-color:var(--naranja-fuerte); }
+  .tabla-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table { border-collapse:collapse; width:100%; min-width:980px; font-size:0.84rem; }
+  thead th { background:var(--naranja); color:#fff; font-weight:600; padding:8px 6px; position:sticky; top:0; }
+  th.pais, td.pais { text-align:left; padding-left:10px; position:sticky; left:0; min-width:170px; }
+  td.pais { background:inherit; font-weight:500; }
+  tbody tr:nth-child(odd) td { background:var(--amarillo); }
+  tbody tr:nth-child(even) td { background:#fff; }
+  td { padding:7px 6px; text-align:center; border-bottom:1px solid #eee; }
+  .notas { margin-top:22px; font-size:0.9rem; color:#555; }
+  .aviso { background:#FDF3E3; border-left:4px solid var(--naranja-fuerte); padding:10px 14px; margin-top:18px; font-size:0.9rem; }
+  .legal { margin-top:26px; font-size:0.72rem; color:#888; text-align:center; line-height:1.5; }
+  .sin-resultados { padding:20px; text-align:center; color:#777; display:none; }
+</style>
 </head>
 <body>
-    <img class="pagina" src="pages/pag-01.webp" alt="Tarifas Roaming - pàgina 1">
-    <img class="pagina" src="pages/pag-02.webp" alt="Tarifas Roaming - pàgina 2" loading="lazy">
-    <img class="pagina" src="pages/pag-03.webp" alt="Tarifas Roaming - pàgina 3" loading="lazy">
-    <img class="pagina" src="pages/pag-04.webp" alt="Tarifas Roaming - pàgina 4" loading="lazy">
-    <img class="pagina" src="pages/pag-05.webp" alt="Tarifas Roaming - pàgina 5" loading="lazy">
-    <img class="pagina" src="pages/pag-06.webp" alt="Tarifas Roaming - pàgina 6" loading="lazy">
-    <img class="pagina" src="pages/pag-07.webp" alt="Tarifas Roaming - pàgina 7" loading="lazy">
-    <img class="pagina" src="pages/pag-08.webp" alt="Tarifas Roaming - pàgina 8" loading="lazy">
-    <img class="pagina" src="pages/pag-09.webp" alt="Tarifas Roaming - pàgina 9" loading="lazy">
-    <img class="pagina" src="pages/pag-10.webp" alt="Tarifas Roaming - pàgina 10" loading="lazy">
-    <img class="pagina" src="pages/pag-11.webp" alt="Tarifas Roaming - pàgina 11" loading="lazy">
-    <img class="pagina" src="pages/pag-12.webp" alt="Tarifas Roaming - pàgina 12" loading="lazy">
-    <img class="pagina" src="pages/pag-13.webp" alt="Tarifas Roaming - pàgina 13" loading="lazy">
+<div class="contenedor">
+  <header>
+    <div>
+      <h1>Tarifas Roaming</h1>
+      <p class="sub">Estas son las tarifas si usas el móvil fuera de España.<br>Precios IVA incluido.</p>
+    </div>
+    <div class="fecha">VIGENTE 2026</div>
+  </header>
+  <input type="search" id="buscador" placeholder="Buscar país..." autocomplete="off">
+  <div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th class="pais">País</th>
+        <th>Zona voz</th>
+        <th>Llamadas realizadas a zona 1 de voz</th>
+        <th>Llamadas realizadas a zona 2 de voz</th>
+        <th>Llamadas realizadas a zona 3 de voz</th>
+        <th>Llamadas realizadas a zona 4 de voz</th>
+        <th>Llamadas recibidas</th>
+        <th>SMS</th>
+        <th>Datos (€/GB)</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpo">
+<tr><td class="pais">Afganistán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Albania</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Alemania</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Andorra</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Angola</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Anguila</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Arabia Saudí</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Argelia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Argentina</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Armenia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Australia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Austria</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Azerbaijan</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Bahamas</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Baréin</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Bélgica</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Bermudas</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Bielorrusia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Bolivia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Bosnia Herzegovina</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Brasil</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Bulgaria</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Cabo Verde</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Camboya</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Camerún</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Canadá</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Chile</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">China</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Chipre</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Colombia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Congo</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Corea del Sur</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Costa Rica</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Croacia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Cuba</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Cuidad del Vaticano</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Curazao</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Dinamarca</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Ecuador</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Egipto</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">El Salvador</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Emiratos Árabes Unidos</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Eslovaquia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Eslovenia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Estados Unidos</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Estonia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Filipinas</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Finlandia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Francia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Gambia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Georgia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Ghana</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Gibraltar</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Grecia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Groenlandia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Guadalupe</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Guatemala</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Guernsey</td><td>Zona 4</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 0,5 € establec.</td><td>1,50 €</td><td>2 €/GB</td></tr>
+<tr><td class="pais">Guinea</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Guinea Ecuatorial y Bisau</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Guyana</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Guyana Francesa</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Honduras</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Hong Kong</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Hungría</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">India</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Indonesia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Irak</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Irlanda</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Isla de Man</td><td>Zona 4</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 0,5 € establec.</td><td>1,50 €</td><td>2 €/GB</td></tr>
+<tr><td class="pais">Islandia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Islas Caimán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Islas Feroe</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Islas Malvinas</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Islas Turcas y Caicos</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Israel</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Italia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Jamaica</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Japón</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Jersey</td><td>Zona 4</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 0,5 € establec.</td><td>1,50 €</td><td>2 €/GB</td></tr>
+<tr><td class="pais">Jordan</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Kazajistán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Kenia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Kirguistán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Kosovo</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Kuwait</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Laos</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Letonia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Líbano</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Libia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Liechtenstein</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Lituania</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Luxemburgo</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Macao</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Macedonia</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Madagascar</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Malasia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Malaui</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Maldivas</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Malta</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Martinica</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Mauricio</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Mauritania</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Mayotte</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Mexico</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Moldova</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Monaco</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Mongolia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Montenegro</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Montserrat</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Morocco</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Mozambique</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Myanmar</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Namibia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Nepal</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Nicaragua</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Nigeria</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Noruega</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Nueva Zelanda</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Omán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Países Bajos</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Panamá</td><td>Sin acuerdo</td><td>Sin servicio</td><td>Sin servicio</td><td>Sin servicio</td><td>Sin servicio</td><td>Sin servicio</td><td>Sin servicio</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Paraguay</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Perú</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Polonia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Portugal</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Puerto Rico</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Qatar</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Reino Unido</td><td>Zona 4</td><td>1 €/min + 0,5 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>1,50 €</td><td>2 €/GB</td></tr>
+<tr><td class="pais">República Checa</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">República Democrática del Congo</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">República Dominicana</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Reunión</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Rumania</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Rusia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">San Martín</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Senegal</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Serbia</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Seychelles</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Sierra Leona</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Singapur</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Sri Lanka</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Suazilandia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Sudáfrica</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Suecia</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Suiza</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Surinam</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Tailandia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Taiwán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Tanzania</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Tayikistán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Territorio Británico del Océano Índico</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Trinidad y Tobago</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Túnez</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Turquía</td><td>Zona 2</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>2 €/min + 1 € establec.</td><td>2 €/min + 1 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Ucrania</td><td>Zona 1</td><td>Según tarifa nacional</td><td>2 €/min + 1 € establec.</td><td>3 €/min + 2 € establec.</td><td>1 €/min + 0,5 € establec.</td><td>0 €</td><td>Según tarifa nacional</td><td>Según tarifa nacional</td></tr>
+<tr><td class="pais">Uganda</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Uruguay</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Uzbekistán</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Vietnam</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+<tr><td class="pais">Zambia</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>Sin servicio</td></tr>
+<tr><td class="pais">Mali</td><td>Zona 3</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>3 €/min + 2 € establec.</td><td>1,50 €</td><td>25 €/GB</td></tr>
+    </tbody>
+  </table>
+  <div class="sin-resultados" id="vacio">Ningún país coincide con la búsqueda.</div>
+  </div>
+  <div class="aviso">
+    <strong>Panamá y Pakistán:</strong> no tenemos acuerdos de roaming con estos países, por lo que no podrás navegar ni enviar o recibir llamadas y mensajes. Si quieres seguir conectado al llegar allí, puedes hacerte con una tarjeta SIM o conectarte a una red wifi local.
+  </div>
+  <div class="notas">
+    <p>Precios válidos salvo error tipográfico.</p>
+    <p>Precios en euros, IVA incluido.</p>
+  </div>
+  <div class="legal">
+    NIMBUS TELECOM, S.L. - B55329643 - C/ TRAMUNTANA, 99 - 17411 VIDRERES<br>
+    Servicio de móvil y fijo prestado por XFERA MÓVILES, S.A.U. con CIF A82528548 y domicilio social en Parque Empresarial "La Finca", Paseo del Club Deportivo, 1, Edif. 8, 28223 - Pozuelo de Alarcón, (Madrid - España).
+  </div>
+</div>
+<script>
+function normalizar(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+const filas = Array.from(document.getElementById('cuerpo').rows);
+filas.forEach(tr => tr.dataset.k = normalizar(tr.cells[0].textContent));
+const vacio = document.getElementById('vacio');
+document.getElementById('buscador').addEventListener('input', e => {
+  const f = normalizar(e.target.value);
+  let n = 0;
+  filas.forEach(tr => { const ok = !f || tr.dataset.k.includes(f); tr.style.display = ok ? '' : 'none'; if (ok) n++; });
+  vacio.style.display = n ? 'none' : 'block';
+});
+</script>
 </body>
 </html>
