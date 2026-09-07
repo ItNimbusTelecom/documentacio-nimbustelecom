@@ -1,23 +1,93 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentació - Nimbus Telecom</title>
-    <style>
-        body { font-family: system-ui, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #333; }
-        h1 { font-size: 1.4rem; }
-        a { color: #e8620c; text-decoration: none; font-size: 1.1rem; }
-        li { margin: 12px 0; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentació - Nimbus Telecom</title>
+<style>
+  :root { --naranja:#E8A13C; --naranja-fuerte:#E8620C; }
+  * { box-sizing:border-box; }
+  body { font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; max-width:640px;
+         margin:40px auto; padding:0 20px; color:#333; }
+  header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; }
+  h1 { font-size:1.4rem; margin:0; }
+  .sub { color:#666; margin:6px 0 0; font-size:.95rem; }
+  .idiomas { display:inline-flex; border:1px solid var(--naranja); border-radius:8px; overflow:hidden; }
+  .idiomas button { border:0; background:#fff; color:var(--naranja-fuerte); font:inherit; font-size:.8rem;
+                    font-weight:600; padding:5px 12px; cursor:pointer; }
+  .idiomas button + button { border-left:1px solid var(--naranja); }
+  .idiomas button[aria-pressed="true"] { background:var(--naranja); color:#fff; }
+  ul { list-style:none; padding:0; margin:28px 0 0; }
+  li { margin:0 0 10px; }
+  li a { display:block; border:1px solid #eee; border-left:4px solid var(--naranja); border-radius:8px;
+         padding:14px 16px; color:var(--naranja-fuerte); text-decoration:none; font-size:1.05rem; font-weight:500; }
+  li a:hover { background:#FDF3E3; }
+  .fecha { color:#888; font-size:.78rem; font-weight:400; display:block; margin-top:2px; }
+</style>
 </head>
 <body>
-    <h1>Documentació Nimbus Telecom</h1>
-    <ul>
-        <li><a href="/roaming/">Tarifes Roaming</a></li>
-        <li><a href="/tarifas_internacional/">Tarifes Internacional</a></li>
-        <li><a href="/numeracion_especial/">Tarifes numeració especial mòbil</a></li>
-        <li><a href="/fijos-internacional/">Tarifes telefonia fixa</a></li>
-    </ul>
+  <header>
+    <div>
+      <h1 id="titulo"></h1>
+      <p class="sub" id="sub"></p>
+    </div>
+    <div class="idiomas" id="idiomas">
+      <button type="button" data-loc="ca">CA</button>
+      <button type="button" data-loc="es">ES</button>
+      <button type="button" data-loc="en">EN</button>
+    </div>
+  </header>
+  <ul>
+    <li><a href="/roaming/" data-k="roaming"></a></li>
+    <li><a href="/tarifas_internacional/" data-k="internacional"></a></li>
+    <li><a href="/numeracion_especial/" data-k="numeracion"></a></li>
+    <li><a href="/fijos-internacional/" data-k="fija"></a></li>
+  </ul>
+<script>
+const UI = {
+  ca: { titulo:"Documentació Nimbus Telecom", sub:"Condicions i tarifes vigents dels serveis de mòbil i fix.",
+        fecha:"Vigent 2026",
+        roaming:"Tarifes Roaming", internacional:"Tarifes Internacional",
+        numeracion:"Tarifes numeració especial mòbil", fija:"Tarifes telefonia fixa" },
+  es: { titulo:"Documentación Nimbus Telecom", sub:"Condiciones y tarifas vigentes de los servicios de móvil y fijo.",
+        fecha:"Vigente 2026",
+        roaming:"Tarifas Roaming", internacional:"Tarifas Internacional",
+        numeracion:"Tarifas numeración especial móvil", fija:"Tarifas telefonía fija" },
+  en: { titulo:"Nimbus Telecom documentation", sub:"Current terms and rates for mobile and landline services.",
+        fecha:"Valid 2026",
+        roaming:"Roaming rates", internacional:"International rates",
+        numeracion:"Special mobile numbering rates", fija:"Landline rates" }
+};
+const CLAVE = "nimbus-locale";
+const IDIOMAS = ["ca","es","en"];
+function guardado(){ try { const v = localStorage.getItem(CLAVE); return IDIOMAS.includes(v) ? v : null; } catch(e){ return null; } }
+function delNavegador(){
+  for (const x of (navigator.languages || [navigator.language || ""])) {
+    const c = String(x).slice(0,2).toLowerCase(); if (IDIOMAS.includes(c)) return c;
+  } return null;
+}
+function resolver(){
+  const p = new URLSearchParams(location.search).get("lang");
+  return IDIOMAS.includes(p) ? p : (guardado() || delNavegador() || "ca");
+}
+function pintar(l){
+  document.documentElement.lang = l;
+  const t = UI[l];
+  document.getElementById("titulo").textContent = t.titulo;
+  document.getElementById("sub").textContent = t.sub;
+  document.title = t.titulo;
+  document.querySelectorAll("li a").forEach(a => {
+    a.innerHTML = t[a.dataset.k] + '<span class="fecha">' + t.fecha + '</span>';
+  });
+  document.querySelectorAll("#idiomas button").forEach(b =>
+    b.setAttribute("aria-pressed", String(b.dataset.loc === l)));
+}
+document.getElementById("idiomas").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  try { localStorage.setItem(CLAVE, b.dataset.loc); } catch(err) {}
+  pintar(b.dataset.loc);
+});
+pintar(resolver());
+</script>
 </body>
 </html>

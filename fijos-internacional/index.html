@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarifas telefonía fija - Nimbus Telecom</title>
+<title>Tarifes telefonia fixa - Nimbus Telecom</title>
 <style>
   :root { --naranja:#E8A13C; --naranja-fuerte:#E8620C; --amarillo:#F6E88C; }
   * { box-sizing:border-box; }
   html,body { margin:0; padding:0; background:#fff; font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; color:#333; }
   .contenedor { max-width:1200px; margin:0 auto; padding:20px 12px 40px; }
-  header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; }
+  header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; }
   h1 { font-size:1.7rem; font-weight:600; color:#444; margin:0; }
   h2 { font-size:1.15rem; font-weight:600; color:#444; margin:26px 0 10px; }
-  .fecha { color:var(--naranja-fuerte); font-weight:600; margin-top:6px; }
+  .der { text-align:right; }
+  .fecha { color:var(--naranja-fuerte); font-weight:600; }
   .sub { margin:6px 0 16px; color:#555; }
-  #buscador { width:100%; max-width:340px; padding:10px 14px; font-size:1rem; border:2px solid var(--naranja); border-radius:8px; margin-bottom:14px; }
+  .idiomas { display:inline-flex; border:1px solid var(--naranja); border-radius:8px; overflow:hidden; margin-bottom:8px; }
+  .idiomas button { border:0; background:#fff; color:var(--naranja-fuerte); font:inherit; font-size:.8rem; font-weight:600; padding:5px 12px; cursor:pointer; }
+  .idiomas button + button { border-left:1px solid var(--naranja); }
+  .idiomas button[aria-pressed="true"] { background:var(--naranja); color:#fff; }
+  #buscador { width:100%; max-width:340px; padding:10px 14px; font-size:1rem; border:2px solid var(--naranja); border-radius:8px; }
   #buscador:focus { outline:none; border-color:var(--naranja-fuerte); }
+  #contador { font-size:.82rem; color:#777; margin-left:10px; }
   .tabla-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   table { border-collapse:collapse; width:100%; min-width:520px; font-size:0.88rem; }
   thead th { background:var(--naranja); color:#fff; font-weight:600; padding:8px 6px; position:sticky; top:0; }
@@ -24,6 +30,7 @@
   tbody tr:nth-child(odd) td { background:var(--amarillo); }
   tbody tr:nth-child(even) td { background:#fff; }
   td { padding:7px 6px; text-align:right; padding-right:14px; border-bottom:1px solid #eee; }
+  .aclaracion { font-size:.82rem; color:#777; margin:0 0 10px; }
   .notas { margin-top:22px; font-size:0.9rem; color:#555; }
   .legal { margin-top:26px; font-size:0.72rem; color:#888; text-align:center; line-height:1.5; }
   .sin-resultados { padding:20px; text-align:center; color:#777; display:none; }
@@ -33,782 +40,120 @@
 <div class="contenedor">
   <header>
     <div>
-      <h1>Tarifas telefonía fija</h1>
-      <p class="sub">Precios de las llamadas realizadas desde una línea fija de Nimbus Telecom.<br>Todos los precios son sin IVA.</p>
+      <h1 id="titulo"></h1>
+      <p class="sub"><span id="sub1"></span><br><span id="sub2"></span></p>
     </div>
-    <div class="fecha">VIGENTE 2026</div>
+    <div class="der">
+      <div class="idiomas" id="idiomas">
+        <button type="button" data-loc="ca">CA</button>
+        <button type="button" data-loc="es">ES</button>
+        <button type="button" data-loc="en">EN</button>
+      </div>
+      <div class="fecha" id="fecha"></div>
+    </div>
   </header>
-  <input type="search" id="buscador" placeholder="Buscar destino..." autocomplete="off">
+  <input type="search" id="buscador" autocomplete="off"><span id="contador"></span>
 
-  <h2>Tarifas desde fijo a números nacionales</h2>
-  <div class="tabla-scroll">
-  <table id="t-nac">
-    <thead><tr><th class="d">Destino</th><th>Establecimiento</th><th>Precio por minuto</th></tr></thead>
-    <tbody>
-<tr><td class="d">Bomberos (080 y 085)</td><td>0,0474 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Guardia Civil (062)</td><td>0,0883 €</td><td>0,0155 €</td></tr>
-<tr><td class="d">Policia Autonoma (088)</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Policia Local (092)</td><td>0,0473 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Policia Nacional (091)</td><td>0,0473 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Proteccion Civil (1006)</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Emergencias España (112)</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Fijos nacionales</td><td>0,0000 €</td><td>0,0150 €</td></tr>
-<tr><td class="d">España telefonos gratuitos</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">España móvil nacional</td><td>0,0000 €</td><td>0,0450 €</td></tr>
-<tr><td class="d">España numero personal nacional (5188 y 704)</td><td>0,1145 €</td><td>0,0915 €</td></tr>
-<tr><td class="d">España premium 1489</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">España premium 806</td><td>1,2448 €</td><td>2,2253 €</td></tr>
-<tr><td class="d">España premium 902 802</td><td>0,2502 €</td><td>0,3188 €</td></tr>
-<tr><td class="d">España coste compartido 801 901</td><td>0,0000 €</td><td>0,0390 €</td></tr>
-<tr><td class="d">España especial 1002</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">España especial 1004</td><td>0,0000 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Trafico y Auxilio Carretera (011)</td><td>0,2131 €</td><td>0,1278 €</td></tr>
-<tr><td class="d">Llama 060</td><td>0,0150 €</td><td>0,0000 €</td></tr>
-<tr><td class="d">Urgencias médicas (061)</td><td>0,0897 €</td><td>0,1984 €</td></tr>
-    </tbody>
-  </table>
-  </div>
+  <h2 id="h2nac"></h2>
+  <div class="tabla-scroll"><table id="t-nac">
+    <thead><tr><th class="d" id="hDest1"></th><th id="hEst1"></th><th id="hMin1"></th></tr></thead>
+    <tbody></tbody>
+  </table></div>
 
-  <h2>Tarifas desde fijo a números internacionales</h2>
-  <div class="tabla-scroll">
-  <table id="t-int">
-    <thead><tr><th class="d">Destino</th><th>Establecimiento</th><th>Precio por minuto (sin IVA)</th></tr></thead>
-    <tbody>
-<tr><td class="d">Afghanistan</td><td>0</td><td>0,3030</td></tr>
-<tr><td class="d">Afghanistan Areeba Mobile</td><td>0</td><td>0,2977</td></tr>
-<tr><td class="d">Afghanistan At Mobile</td><td>0</td><td>0,2833</td></tr>
-<tr><td class="d">Afghanistan Mobile AWCC</td><td>0</td><td>0,3030</td></tr>
-<tr><td class="d">Afghanistan Mobile Etisalat</td><td>0</td><td>0,3030</td></tr>
-<tr><td class="d">Afghanistan Mobile MTN</td><td>0</td><td>0,3030</td></tr>
-<tr><td class="d">Afghanistan Mobile Others</td><td>0</td><td>0,3030</td></tr>
-<tr><td class="d">Afghanistan Mobile Roshan</td><td>0</td><td>0,3030</td></tr>
-<tr><td class="d">Alaska</td><td>0</td><td>0,1728</td></tr>
-<tr><td class="d">Albania</td><td>0</td><td>0,2391</td></tr>
-<tr><td class="d">Albania Amc Fixed</td><td>0</td><td>0,2391</td></tr>
-<tr><td class="d">Albania Fixed AMC</td><td>0</td><td>0,2391</td></tr>
-<tr><td class="d">Albania Mobile AMC</td><td>0</td><td>0,5191</td></tr>
-<tr><td class="d">Albania Mobile Others</td><td>0</td><td>0,5191</td></tr>
-<tr><td class="d">Albania Mobile Plus</td><td>0</td><td>0,6229</td></tr>
-<tr><td class="d">Albania Mobile Vodafone</td><td>0</td><td>0,5191</td></tr>
-<tr><td class="d">Albania Tirana</td><td>0</td><td>0,2070</td></tr>
-<tr><td class="d">Algeria</td><td>0</td><td>0,2174</td></tr>
-<tr><td class="d">Algeria Mobile Djezzy</td><td>0</td><td>0,1944</td></tr>
-<tr><td class="d">Algeria Mobile MPTA</td><td>0</td><td>0,7818</td></tr>
-<tr><td class="d">Algeria Mobile Orascom</td><td>0</td><td>1,3921</td></tr>
-<tr><td class="d">Algeria Mobile Other</td><td>0</td><td>0,9512</td></tr>
-<tr><td class="d">ANDORRA</td><td>0</td><td>0,0839</td></tr>
-<tr><td class="d">Andorra Mobile</td><td>0</td><td>0,3074</td></tr>
-<tr><td class="d">Angola</td><td>0</td><td>0,1980</td></tr>
-<tr><td class="d">Angola Mobile Others</td><td>0</td><td>0,3097</td></tr>
-<tr><td class="d">Angola Mobile Unitel</td><td>0</td><td>0,3097</td></tr>
-<tr><td class="d">Anguilla</td><td>0</td><td>0,3589</td></tr>
-<tr><td class="d">Antarctica</td><td>0</td><td>1,8036</td></tr>
-<tr><td class="d">Antarctica Ex Norfolk</td><td>0</td><td>1,9007</td></tr>
-<tr><td class="d">Antigua and Barbuda</td><td>0</td><td>0,3927</td></tr>
-<tr><td class="d">Argentina</td><td>0</td><td>0,1002</td></tr>
-<tr><td class="d">Argentina Buenos Aires</td><td>0</td><td>0,0284</td></tr>
-<tr><td class="d">Argentina Cordoba</td><td>0</td><td>0,0838</td></tr>
-<tr><td class="d">Argentina Mobile</td><td>0</td><td>0,1921</td></tr>
-<tr><td class="d">Armenia</td><td>0</td><td>0,2772</td></tr>
-<tr><td class="d">Armenia Erevan</td><td>0</td><td>0,3645</td></tr>
-<tr><td class="d">Armenia Mobile</td><td>0</td><td>0,3645</td></tr>
-<tr><td class="d">Aruba</td><td>0</td><td>0,2727</td></tr>
-<tr><td class="d">Aruba / Mobile</td><td>0</td><td>0,3368</td></tr>
-<tr><td class="d">Ascension</td><td>0</td><td>2,4840</td></tr>
-<tr><td class="d">Australia</td><td>0</td><td>0,0857</td></tr>
-<tr><td class="d">Australia Canberra</td><td>0</td><td>0,0857</td></tr>
-<tr><td class="d">Australia Cocos&Christmas Isla</td><td>0</td><td>0,0911</td></tr>
-<tr><td class="d">Australia Melbourne</td><td>0</td><td>0,0857</td></tr>
-<tr><td class="d">Australia Mobile Optus</td><td>0</td><td>0,1643</td></tr>
-<tr><td class="d">Australia Mobile Others</td><td>0</td><td>0,1643</td></tr>
-<tr><td class="d">Australia Mobile Telstra</td><td>0</td><td>0,1643</td></tr>
-<tr><td class="d">Australia Mobile Vodafone</td><td>0</td><td>0,1643</td></tr>
-<tr><td class="d">Australia Shared Cost</td><td>0</td><td>0,2173</td></tr>
-<tr><td class="d">Australia Sydney</td><td>0</td><td>0,0857</td></tr>
-<tr><td class="d">Austria</td><td>0</td><td>0,0347</td></tr>
-<tr><td class="d">Austria Freephone</td><td>0</td><td>0,4829</td></tr>
-<tr><td class="d">Austria Linz</td><td>0</td><td>0,0347</td></tr>
-<tr><td class="d">AUSTRIA MOBILE</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Austria Mobile H3G</td><td>0</td><td>1,0211</td></tr>
-<tr><td class="d">AUSTRIA MOBILE HUTCHISON</td><td>0</td><td>0,2016</td></tr>
-<tr><td class="d">Austria Mobile Mobilkom</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Austria Mobile One</td><td>0</td><td>0,2404</td></tr>
-<tr><td class="d">Austria Mobile Others</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Austria Mobile Tele2</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Austria Mobile Telering</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Austria Mobile Tmobile</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Austria Mobile Yesss</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">AUSTRIA PERSONAL NUMBER</td><td>0</td><td>0,1568</td></tr>
-<tr><td class="d">Austria Salzburg</td><td>0</td><td>0,0347</td></tr>
-<tr><td class="d">Austria Shared Cost</td><td>0</td><td>0,0347</td></tr>
-<tr><td class="d">Austria Vienna</td><td>0</td><td>0,0347</td></tr>
-<tr><td class="d">Azerbaijan</td><td>0</td><td>0,4992</td></tr>
-<tr><td class="d">Azerbaijan Mobile</td><td>0</td><td>0,5755</td></tr>
-<tr><td class="d">Bahamas</td><td>0</td><td>0,2028</td></tr>
-<tr><td class="d">BAHAMAS / MOBILE</td><td>0</td><td>0,3041</td></tr>
-<tr><td class="d">Bahrain</td><td>0</td><td>0,2469</td></tr>
-<tr><td class="d">Bahrain Mobile Batelco</td><td>0</td><td>0,2518</td></tr>
-<tr><td class="d">Bahrain Mobile Others</td><td>0</td><td>0,2518</td></tr>
-<tr><td class="d">Bahrain Mobile Zain</td><td>0</td><td>0,2518</td></tr>
-<tr><td class="d">Bangladesh</td><td>0</td><td>0,1926</td></tr>
-<tr><td class="d">Bangladesh Chittagong</td><td>0</td><td>0,1926</td></tr>
-<tr><td class="d">Bangladesh Dhaka</td><td>0</td><td>0,1890</td></tr>
-<tr><td class="d">Bangladesh Mobile Grameen</td><td>0</td><td>0,1890</td></tr>
-<tr><td class="d">Bangladesh Mobile Others</td><td>0</td><td>0,1890</td></tr>
-<tr><td class="d">Bangladesh Sylhet</td><td>0</td><td>0,1890</td></tr>
-<tr><td class="d">Bosnia Mobile BH</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Bosnia Mobile HPT</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Bosnia Mobile Others</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Bosnia Mobile SRPS</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Bosnia SRPSKE</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Botswana</td><td>0</td><td>0,2067</td></tr>
-<tr><td class="d">Botswana Mobile</td><td>0</td><td>0,2753</td></tr>
-<tr><td class="d">Brazil</td><td>0</td><td>0,1350</td></tr>
-<tr><td class="d">Brazil Bello Horizonte</td><td>0</td><td>0,1350</td></tr>
-<tr><td class="d">Brazil Mobile</td><td>0</td><td>0,1350</td></tr>
-<tr><td class="d">Brazil Otras Ciudades 1</td><td>0</td><td>0,1350</td></tr>
-<tr><td class="d">Brazil Otras Ciudades 2</td><td>0</td><td>0,0378</td></tr>
-<tr><td class="d">Brazil Rio De Janeiro</td><td>0</td><td>0,0378</td></tr>
-<tr><td class="d">Brazil Sao Paulo Capital</td><td>0</td><td>0,0378</td></tr>
-<tr><td class="d">BRAZIL SAO PAULO RESTO</td><td>0</td><td>0,0378</td></tr>
-<tr><td class="d">British Virgin Islands</td><td>0</td><td>0,5348</td></tr>
-<tr><td class="d">Brunei</td><td>0</td><td>0,1570</td></tr>
-<tr><td class="d">Brunei Mobile Darussalam</td><td>0</td><td>0,1483</td></tr>
-<tr><td class="d">Bulgaria</td><td>0</td><td>0,0819</td></tr>
-<tr><td class="d">Bulgaria Mobile</td><td>0</td><td>0,3623</td></tr>
-<tr><td class="d">Bulgaria Mobile Globul</td><td>0</td><td>0,3623</td></tr>
-<tr><td class="d">Bulgaria Mobile Max</td><td>0</td><td>0,3623</td></tr>
-<tr><td class="d">Bulgaria Mobile Mobiltel</td><td>0</td><td>0,3623</td></tr>
-<tr><td class="d">Bulgaria OLO</td><td>0</td><td>0,3623</td></tr>
-<tr><td class="d">Bulgaria Sofia</td><td>0</td><td>0,3623</td></tr>
-<tr><td class="d">Burkina Faso</td><td>0</td><td>0,4302</td></tr>
-<tr><td class="d">Burkina Faso Mobile Celtel</td><td>0</td><td>0,5090</td></tr>
-<tr><td class="d">Burkina Faso Mobile Others</td><td>0</td><td>0,5090</td></tr>
-<tr><td class="d">Burundi</td><td>0</td><td>0,3000</td></tr>
-<tr><td class="d">Burundi Mobile Onatel</td><td>0</td><td>0,4340</td></tr>
-<tr><td class="d">Burundi Mobile Others</td><td>0</td><td>0,4340</td></tr>
-<tr><td class="d">Burundi Mobile Ucom</td><td>0</td><td>0,4340</td></tr>
-<tr><td class="d">Cambodia</td><td>0</td><td>0,1620</td></tr>
-<tr><td class="d">Cambodia Mobile</td><td>0</td><td>0,2205</td></tr>
-<tr><td class="d">Cameroon</td><td>0</td><td>0,4819</td></tr>
-<tr><td class="d">Cameroon Mobile MTN</td><td>0</td><td>0,4306</td></tr>
-<tr><td class="d">Cameroon Mobile Others</td><td>0</td><td>0,4306</td></tr>
-<tr><td class="d">Canada Northwestel</td><td>0</td><td>0,0315</td></tr>
-<tr><td class="d">Canada Other</td><td>0</td><td>0,0315</td></tr>
-<tr><td class="d">Cape Verde</td><td>0</td><td>0,2846</td></tr>
-<tr><td class="d">Cape Verde / Mobile</td><td>0</td><td>0,4368</td></tr>
-<tr><td class="d">Cayman Islands</td><td>0</td><td>0,1980</td></tr>
-<tr><td class="d">Cayman Islands Mobile</td><td>0</td><td>0,2810</td></tr>
-<tr><td class="d">Central African Republic</td><td>0</td><td>0,5619</td></tr>
-<tr><td class="d">Chad</td><td>0</td><td>0,4761</td></tr>
-<tr><td class="d">Chad Mobile Millicom</td><td>0</td><td>0,4996</td></tr>
-<tr><td class="d">Chad Mobile Sotel</td><td>0</td><td>0,4996</td></tr>
-<tr><td class="d">Chad Mobile Zain</td><td>0</td><td>0,4996</td></tr>
-<tr><td class="d">CHILE</td><td>0</td><td>0,0806</td></tr>
-<tr><td class="d">Chile Mobile</td><td>0</td><td>0,1411</td></tr>
-<tr><td class="d">Chile Rural</td><td>0</td><td>0,2919</td></tr>
-<tr><td class="d">Chile Santiago</td><td>0</td><td>0,0806</td></tr>
-<tr><td class="d">China</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Beijing</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Guangzhou</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Mobile</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Mobile Telecom</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Mobile Unicom</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Shanghai</td><td>0</td><td>0,0832</td></tr>
-<tr><td class="d">China Shenzhen</td><td>0</td><td>0,1303</td></tr>
-<tr><td class="d">Colombia</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Armenia</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Baranquilla</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Bogota</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Cali</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Cartagena</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia LEX</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Manizales</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Medellin</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Colombia Mobile</td><td>0</td><td>0,1037</td></tr>
-<tr><td class="d">COLOMBIA MOBILE COMCEL</td><td>0</td><td>0,1037</td></tr>
-<tr><td class="d">Colombia Mobile Movistar</td><td>0</td><td>0,1037</td></tr>
-<tr><td class="d">Colombia Mobile Tigo</td><td>0</td><td>0,1037</td></tr>
-<tr><td class="d">Colombia Pereira</td><td>0</td><td>0,1303</td></tr>
-<tr><td class="d">Comoros</td><td>0</td><td>0,4756</td></tr>
-<tr><td class="d">Comoros Mobile</td><td>0</td><td>0,9660</td></tr>
-<tr><td class="d">CONGO</td><td>0</td><td>0,8453</td></tr>
-<tr><td class="d">Congo Democratic Republic</td><td>0</td><td>0,6555</td></tr>
-<tr><td class="d">Congo Democratic Republic Mobile Celtel</td><td>0</td><td>0,6555</td></tr>
-<tr><td class="d">Congo Democratic Republic Mobile Others</td><td>0</td><td>0,6555</td></tr>
-<tr><td class="d">Congo Democratic Republic Mobile SAIT</td><td>0</td><td>0,6555</td></tr>
-<tr><td class="d">Congo Democratic Republic Mobile Vodacom</td><td>0</td><td>0,6555</td></tr>
-<tr><td class="d">Congo Mobile Celtel</td><td>0</td><td>0,8453</td></tr>
-<tr><td class="d">Congo Mobile MTN</td><td>0</td><td>0,8453</td></tr>
-<tr><td class="d">Congo Mobile Others</td><td>0</td><td>0,8453</td></tr>
-<tr><td class="d">Cook Islands</td><td>0</td><td>1,0557</td></tr>
-<tr><td class="d">COSTA RICA</td><td>0</td><td>0,0979</td></tr>
-<tr><td class="d">Costa Rica Mobile</td><td>0</td><td>0,1730</td></tr>
-<tr><td class="d">Croatia</td><td>0</td><td>0,1944</td></tr>
-<tr><td class="d">Croatia Mobile Tele2</td><td>0</td><td>0,2556</td></tr>
-<tr><td class="d">Croatia Mobile TMobile</td><td>0</td><td>0,2556</td></tr>
-<tr><td class="d">Cuba</td><td>0</td><td>0,9488</td></tr>
-<tr><td class="d">Cuba Guantanamo Bay</td><td>0</td><td>0,1178</td></tr>
-<tr><td class="d">Cuba Mobile</td><td>0</td><td>0,9488</td></tr>
-<tr><td class="d">Cyprus</td><td>0</td><td>0,0945</td></tr>
-<tr><td class="d">Cyprus Mobile</td><td>0</td><td>0,1440</td></tr>
-<tr><td class="d">Cyprus Mobile MTN</td><td>0</td><td>0,2678</td></tr>
-<tr><td class="d">Czech Republic</td><td>0</td><td>0,1040</td></tr>
-<tr><td class="d">Czech Republic Mobile O2</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Czech Republic Mobile Others</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Czech Republic Mobile TMobile</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Czech Republic Mobile Vodafone</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Czech Republic Prague</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Denmark</td><td>0</td><td>0,0208</td></tr>
-<tr><td class="d">Denmark Mobile</td><td>0</td><td>0,0617</td></tr>
-<tr><td class="d">DENMARK MOBILE TDC</td><td>0</td><td>0,0630</td></tr>
-<tr><td class="d">Denmark Mobile Telia</td><td>0</td><td>0,0662</td></tr>
-<tr><td class="d">Denmark TDC MMobile</td><td>0</td><td>0,1355</td></tr>
-<tr><td class="d">Diego Garcia</td><td>0</td><td>3,1050</td></tr>
-<tr><td class="d">Djibouti</td><td>0</td><td>0,4306</td></tr>
-<tr><td class="d">Djibouti Mobile</td><td>0</td><td>0,4306</td></tr>
-<tr><td class="d">Dominica</td><td>0</td><td>0,2565</td></tr>
-<tr><td class="d">Dominican Republic</td><td>0</td><td>0,1692</td></tr>
-<tr><td class="d">Dominican Republic Mobile</td><td>0</td><td>0,3647</td></tr>
-<tr><td class="d">East Timor</td><td>0</td><td>1,1696</td></tr>
-<tr><td class="d">Ecuador</td><td>0</td><td>0,2669</td></tr>
-<tr><td class="d">Ecuador Mobile Alegro</td><td>0</td><td>0,3249</td></tr>
-<tr><td class="d">Ecuador Mobile Movistar</td><td>0</td><td>0,2441</td></tr>
-<tr><td class="d">Ecuador Mobile Porta</td><td>0</td><td>0,2597</td></tr>
-<tr><td class="d">Egypt</td><td>0</td><td>0,2070</td></tr>
-<tr><td class="d">Egypt Cairo</td><td>0</td><td>0,2070</td></tr>
-<tr><td class="d">Egypt Mobile Etisalat</td><td>0</td><td>0,2493</td></tr>
-<tr><td class="d">Egypt Mobile Mobinil</td><td>0</td><td>0,2493</td></tr>
-<tr><td class="d">Egypt Mobile Others</td><td>0</td><td>0,2493</td></tr>
-<tr><td class="d">El Salvador</td><td>0</td><td>0,2333</td></tr>
-<tr><td class="d">El Salvador Mobile CTE</td><td>0</td><td>0,2463</td></tr>
-<tr><td class="d">Equatorial Guinea</td><td>0</td><td>0,6264</td></tr>
-<tr><td class="d">Eritrea</td><td>0</td><td>0,2753</td></tr>
-<tr><td class="d">Eritrea Mobile</td><td>0</td><td>0,3232</td></tr>
-<tr><td class="d">ESTONIA</td><td>0</td><td>0,0945</td></tr>
-<tr><td class="d">Estonia Mobile</td><td>0</td><td>0,4396</td></tr>
-<tr><td class="d">Ethiopia</td><td>0</td><td>0,3229</td></tr>
-<tr><td class="d">Ethiopia Mobile Addis Ababa</td><td>0</td><td>0,2850</td></tr>
-<tr><td class="d">Falkland Islands</td><td>0</td><td>2,9153</td></tr>
-<tr><td class="d">Faroe Islands</td><td>0</td><td>0,2138</td></tr>
-<tr><td class="d">Faroe Islands Mobile</td><td>0</td><td>0,1856</td></tr>
-<tr><td class="d">Fiji</td><td>0</td><td>0,9936</td></tr>
-<tr><td class="d">Finland</td><td>0</td><td>0,1500</td></tr>
-<tr><td class="d">Finland / Premium</td><td>0</td><td>0,1645</td></tr>
-<tr><td class="d">Finland Mobile</td><td>0</td><td>0,1224</td></tr>
-<tr><td class="d">Finland NGN</td><td>0</td><td>0,2045</td></tr>
-<tr><td class="d">FRANCE</td><td>0</td><td>0,0170</td></tr>
-<tr><td class="d">France / Mobile Bouygues, Orange, SFR, Other</td><td>0</td><td>0,0990</td></tr>
-<tr><td class="d">FRANCE MOBILE</td><td>0</td><td>0,0990</td></tr>
-<tr><td class="d">France Mobile Bouygues</td><td>0</td><td>0,0990</td></tr>
-<tr><td class="d">France Mobile Orange</td><td>0</td><td>0,0990</td></tr>
-<tr><td class="d">France Mobile SFR</td><td>0</td><td>0,0990</td></tr>
-<tr><td class="d">French Guyana</td><td>0</td><td>0,2025</td></tr>
-<tr><td class="d">French Guyana Mobile</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">French Polynesia</td><td>0</td><td>0,3367</td></tr>
-<tr><td class="d">French Polynesia Mobile</td><td>0</td><td>0,3367</td></tr>
-<tr><td class="d">Gabon</td><td>0</td><td>0,4986</td></tr>
-<tr><td class="d">Gabon Mobile Celtel</td><td>0</td><td>0,7961</td></tr>
-<tr><td class="d">Gambia</td><td>0</td><td>0,7357</td></tr>
-<tr><td class="d">Gambia Mobile Africell</td><td>0</td><td>0,7357</td></tr>
-<tr><td class="d">Gambia Mobile Comium</td><td>0</td><td>0,7357</td></tr>
-<tr><td class="d">Gambia Mobile Others</td><td>0</td><td>0,7357</td></tr>
-<tr><td class="d">Georgia</td><td>0</td><td>0,2230</td></tr>
-<tr><td class="d">Georgia Abkhazia</td><td>0</td><td>0,2230</td></tr>
-<tr><td class="d">Georgia Mobile</td><td>0</td><td>0,3639</td></tr>
-<tr><td class="d">Georgia Mobile Geocell</td><td>0</td><td>0,3639</td></tr>
-<tr><td class="d">Georgia Mobile Magticom</td><td>0</td><td>0,3639</td></tr>
-<tr><td class="d">Germany</td><td>0</td><td>0,0170</td></tr>
-<tr><td class="d">Germany Mobile 02</td><td>0</td><td>0,1027</td></tr>
-<tr><td class="d">Germany Mobile EPlus</td><td>0</td><td>0,1386</td></tr>
-<tr><td class="d">Germany Mobile Vistream</td><td>0</td><td>0,0893</td></tr>
-<tr><td class="d">Germany Mobile Vodafone</td><td>0</td><td>0,0824</td></tr>
-<tr><td class="d">Germany NGN, VoIP</td><td>0</td><td>0,0315</td></tr>
-<tr><td class="d">Ghana</td><td>0</td><td>0,3673</td></tr>
-<tr><td class="d">Ghana Accra</td><td>0</td><td>0,3673</td></tr>
-<tr><td class="d">Ghana Mobile Mobiltel</td><td>0</td><td>0,3477</td></tr>
-<tr><td class="d">Ghana Mobile MTN</td><td>0</td><td>0,3477</td></tr>
-<tr><td class="d">Ghana Mobile Others</td><td>0</td><td>0,3477</td></tr>
-<tr><td class="d">Ghana Mobile Vodafone</td><td>0</td><td>0,3477</td></tr>
-<tr><td class="d">Gibraltar</td><td>0</td><td>0,1379</td></tr>
-<tr><td class="d">Gibraltar Mobile</td><td>0</td><td>0,2053</td></tr>
-<tr><td class="d">GREECE</td><td>0</td><td>0,0756</td></tr>
-<tr><td class="d">Greece Athens</td><td>0</td><td>0,0756</td></tr>
-<tr><td class="d">Greece Mobile Cosmote</td><td>0</td><td>0,1368</td></tr>
-<tr><td class="d">Greece Mobile Others</td><td>0</td><td>0,1368</td></tr>
-<tr><td class="d">Greece Mobile Vodafone</td><td>0</td><td>0,1368</td></tr>
-<tr><td class="d">Greece Mobile Wind</td><td>0</td><td>0,1368</td></tr>
-<tr><td class="d">Greenland</td><td>0</td><td>0,4357</td></tr>
-<tr><td class="d">Greenland Mobile</td><td>0</td><td>0,4357</td></tr>
-<tr><td class="d">Grenada</td><td>0</td><td>0,3103</td></tr>
-<tr><td class="d">Grenada Mobile</td><td>0</td><td>0,2799</td></tr>
-<tr><td class="d">Guadeloupe</td><td>0</td><td>0,0857</td></tr>
-<tr><td class="d">Guadeloupe Mobile Digicel</td><td>0</td><td>0,2163</td></tr>
-<tr><td class="d">Guadeloupe Mobile Orange</td><td>0</td><td>0,2163</td></tr>
-<tr><td class="d">Guadeloupe Mobile Others</td><td>0</td><td>0,2163</td></tr>
-<tr><td class="d">Guam</td><td>0</td><td>0,1008</td></tr>
-<tr><td class="d">Guatemala</td><td>0</td><td>0,2790</td></tr>
-<tr><td class="d">Guatemala Mobile Comcel</td><td>0</td><td>0,2455</td></tr>
-<tr><td class="d">Guatemala Mobile Others</td><td>0</td><td>0,2455</td></tr>
-<tr><td class="d">Guatemala Mobile PCS</td><td>0</td><td>0,2455</td></tr>
-<tr><td class="d">Guatemala Mobile Telefonica</td><td>0</td><td>0,2455</td></tr>
-<tr><td class="d">Guinea</td><td>0</td><td>0,4874</td></tr>
-<tr><td class="d">Guinea / Mobile Orange</td><td>0</td><td>0,6037</td></tr>
-<tr><td class="d">Guinea Bissau</td><td>0</td><td>1,1385</td></tr>
-<tr><td class="d">Guinea Bissau Mobile Others</td><td>0</td><td>0,6587</td></tr>
-<tr><td class="d">Guyana</td><td>0</td><td>0,3600</td></tr>
-<tr><td class="d">Guyana Mobile</td><td>0</td><td>0,3569</td></tr>
-<tr><td class="d">Haiti</td><td>0</td><td>0,3600</td></tr>
-<tr><td class="d">Haiti Mobile Comcel</td><td>0</td><td>0,4204</td></tr>
-<tr><td class="d">Haiti Mobile Digicel</td><td>0</td><td>0,4204</td></tr>
-<tr><td class="d">Haiti Mobile Haitel</td><td>0</td><td>0,4204</td></tr>
-<tr><td class="d">Haiti Mobile Others</td><td>0</td><td>0,4204</td></tr>
-<tr><td class="d">Honduras</td><td>0</td><td>0,1953</td></tr>
-<tr><td class="d">Honduras Mobile Claro</td><td>0</td><td>0,2241</td></tr>
-<tr><td class="d">Honduras Mobile Digicel</td><td>0</td><td>0,2241</td></tr>
-<tr><td class="d">Honduras Mobile Hondutel</td><td>0</td><td>0,2241</td></tr>
-<tr><td class="d">Honduras Mobile Tigo</td><td>0</td><td>0,2241</td></tr>
-<tr><td class="d">Hong Kong</td><td>0</td><td>0,0947</td></tr>
-<tr><td class="d">Hong Kong Mobile</td><td>0</td><td>0,1296</td></tr>
-<tr><td class="d">Hungary</td><td>0</td><td>0,0523</td></tr>
-<tr><td class="d">Hungary Budapest</td><td>0</td><td>0,0523</td></tr>
-<tr><td class="d">Hungary Mobile Pannon</td><td>0</td><td>0,1152</td></tr>
-<tr><td class="d">Hungary Mobile Vodafone</td><td>0</td><td>0,1152</td></tr>
-<tr><td class="d">Hungary Mobile Westel</td><td>0</td><td>0,1152</td></tr>
-<tr><td class="d">Iceland</td><td>0</td><td>0,0693</td></tr>
-<tr><td class="d">Iceland Mobile</td><td>0</td><td>0,1080</td></tr>
-<tr><td class="d">India</td><td>0</td><td>0,1090</td></tr>
-<tr><td class="d">India Ahmedabad</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Bangalore</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Baroda</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Bombay</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Calcutta</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Hyderabad</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Madras</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Mobile BSNL</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Mobile Others</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India New Delhi</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Pune</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">India Punjab</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">Indonesia</td><td>0</td><td>0,2039</td></tr>
-<tr><td class="d">Indonesia Jakarta</td><td>0</td><td>0,1703</td></tr>
-<tr><td class="d">Indonesia Mobile</td><td>0</td><td>0,1868</td></tr>
-<tr><td class="d">Iran</td><td>0</td><td>0,2939</td></tr>
-<tr><td class="d">Iran Mobile</td><td>0</td><td>0,2466</td></tr>
-<tr><td class="d">Iran Tehran</td><td>0</td><td>0,2055</td></tr>
-<tr><td class="d">Iraq</td><td>0</td><td>0,2405</td></tr>
-<tr><td class="d">Iraq Baghdad</td><td>0</td><td>0,1872</td></tr>
-<tr><td class="d">Iraq Mobile Asiacell</td><td>0</td><td>0,3017</td></tr>
-<tr><td class="d">Iraq Mobile Atheer</td><td>0</td><td>0,3017</td></tr>
-<tr><td class="d">Iraq Mobile Korek</td><td>0</td><td>0,3017</td></tr>
-<tr><td class="d">Iraq Mobile Orascom</td><td>0</td><td>0,3017</td></tr>
-<tr><td class="d">Iraq Mobile Others</td><td>0</td><td>0,3017</td></tr>
-<tr><td class="d">Iraq Mobile Sana</td><td>0</td><td>0,3017</td></tr>
-<tr><td class="d">Ireland</td><td>0</td><td>0,0586</td></tr>
-<tr><td class="d">Ireland Dublin</td><td>0</td><td>0,0586</td></tr>
-<tr><td class="d">Ireland Mobile H3G</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland Mobile Meteror</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland Mobile O2</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland Mobile Others</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland Mobile Vodafone</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland Personal Number</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland Shannon</td><td>0</td><td>0,1604</td></tr>
-<tr><td class="d">Ireland VoIP</td><td>0</td><td>0,2617</td></tr>
-<tr><td class="d">Israel</td><td>0</td><td>0,0693</td></tr>
-<tr><td class="d">Israel Mobile</td><td>0</td><td>0,1386</td></tr>
-<tr><td class="d">Israel Tel Aviv</td><td>0</td><td>0,0284</td></tr>
-<tr><td class="d">Italy</td><td>0</td><td>0,0315</td></tr>
-<tr><td class="d">Italy Mobile H3G</td><td>0</td><td>0,0857</td></tr>
-<tr><td class="d">Italy Mobile Noverca</td><td>0</td><td>0,0943</td></tr>
-<tr><td class="d">Italy Mobile TIM</td><td>0</td><td>0,0803</td></tr>
-<tr><td class="d">Italy Mobile Vodafone Omnitel</td><td>0</td><td>0,1355</td></tr>
-<tr><td class="d">Italy Shared Cost</td><td>0</td><td>0,6847</td></tr>
-<tr><td class="d">Ivory Coast</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Jamaica</td><td>0</td><td>0,3425</td></tr>
-<tr><td class="d">Jamaica Mobile CWJ</td><td>0</td><td>0,3425</td></tr>
-<tr><td class="d">Jamaica Mobile Digicel</td><td>0</td><td>0,3425</td></tr>
-<tr><td class="d">Jamaica Mobile Others</td><td>0</td><td>0,3425</td></tr>
-<tr><td class="d">Japan</td><td>0</td><td>0,0889</td></tr>
-<tr><td class="d">Japan Mobile</td><td>0</td><td>0,1595</td></tr>
-<tr><td class="d">Japan Tokyo</td><td>0</td><td>0,0889</td></tr>
-<tr><td class="d">Jordan</td><td>0</td><td>0,1501</td></tr>
-<tr><td class="d">Jordan Amman</td><td>0</td><td>0,2348</td></tr>
-<tr><td class="d">Jordan Mobile Fastlink</td><td>0</td><td>0,1958</td></tr>
-<tr><td class="d">Jordan Mobile Others</td><td>0</td><td>0,1958</td></tr>
-<tr><td class="d">Kazakhstan</td><td>0</td><td>0,1771</td></tr>
-<tr><td class="d">Kazakhstan Mobile</td><td>0</td><td>0,2719</td></tr>
-<tr><td class="d">Kenya</td><td>0</td><td>0,2501</td></tr>
-<tr><td class="d">Kenya Mobile Celtel</td><td>0</td><td>0,3566</td></tr>
-<tr><td class="d">Kenya Mobile Others</td><td>0</td><td>0,3566</td></tr>
-<tr><td class="d">Kenya Mobile Safarikom</td><td>0</td><td>0,3566</td></tr>
-<tr><td class="d">Kenya Nairobi</td><td>0</td><td>0,1631</td></tr>
-<tr><td class="d">Kiribati</td><td>0</td><td>1,4231</td></tr>
-<tr><td class="d">Kuwait</td><td>0</td><td>0,1805</td></tr>
-<tr><td class="d">Kuwait Mobile Others</td><td>0</td><td>0,1805</td></tr>
-<tr><td class="d">Kuwait Mobile Wataniya</td><td>0</td><td>0,1805</td></tr>
-<tr><td class="d">Kuwait Mobile Zain</td><td>0</td><td>0,1805</td></tr>
-<tr><td class="d">Kyrgyzstan</td><td>0</td><td>0,2988</td></tr>
-<tr><td class="d">Kyrgyzstan Mobile</td><td>0</td><td>0,2988</td></tr>
-<tr><td class="d">Laos</td><td>0</td><td>0,2030</td></tr>
-<tr><td class="d">Latvia</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Latvia Mobile</td><td>0</td><td>1,3973</td></tr>
-<tr><td class="d">Lebanon</td><td>0</td><td>0,2273</td></tr>
-<tr><td class="d">Lebanon Mobile</td><td>0</td><td>0,2651</td></tr>
-<tr><td class="d">Lesotho</td><td>0</td><td>0,6148</td></tr>
-<tr><td class="d">Liberia</td><td>0</td><td>0,4761</td></tr>
-<tr><td class="d">Liberia Mobile Cellcom</td><td>0</td><td>0,4658</td></tr>
-<tr><td class="d">Liberia Mobile Comium</td><td>0</td><td>0,4658</td></tr>
-<tr><td class="d">Liberia Mobile MTN</td><td>0</td><td>0,4658</td></tr>
-<tr><td class="d">Liberia Mobile Others</td><td>0</td><td>0,4658</td></tr>
-<tr><td class="d">Libya</td><td>0</td><td>0,3860</td></tr>
-<tr><td class="d">Libya Mobile</td><td>0</td><td>0,3938</td></tr>
-<tr><td class="d">Liechtenstein</td><td>0</td><td>0,1926</td></tr>
-<tr><td class="d">Liechtenstein Mobile Mobilkom</td><td>0</td><td>0,2569</td></tr>
-<tr><td class="d">Liechtenstein Mobile Orange</td><td>0</td><td>0,2569</td></tr>
-<tr><td class="d">Liechtenstein Mobile Others</td><td>0</td><td>0,2569</td></tr>
-<tr><td class="d">Liechtenstein Mobile Swisscom</td><td>0</td><td>0,2569</td></tr>
-<tr><td class="d">Liechtenstein Mobile Tele2</td><td>0</td><td>0,2569</td></tr>
-<tr><td class="d">Lithuania</td><td>0</td><td>0,1069</td></tr>
-<tr><td class="d">Lithuania Mobile Bite</td><td>0</td><td>0,1811</td></tr>
-<tr><td class="d">Lithuania Mobile Others</td><td>0</td><td>0,1811</td></tr>
-<tr><td class="d">Lithuania Mobile Tele2</td><td>0</td><td>0,1811</td></tr>
-<tr><td class="d">Luxembourg</td><td>0</td><td>0,0864</td></tr>
-<tr><td class="d">Luxembourg Mobile LUX</td><td>0</td><td>0,1166</td></tr>
-<tr><td class="d">Luxembourg Mobile Tango</td><td>0</td><td>0,1166</td></tr>
-<tr><td class="d">Luxembourg Mobile VOX</td><td>0</td><td>0,1166</td></tr>
-<tr><td class="d">Macau</td><td>0</td><td>0,2556</td></tr>
-<tr><td class="d">Macau Mobile</td><td>0</td><td>0,2556</td></tr>
-<tr><td class="d">Macedonia</td><td>0</td><td>0,2044</td></tr>
-<tr><td class="d">Macedonia Mobile Cosmofon</td><td>0</td><td>0,4588</td></tr>
-<tr><td class="d">Macedonia Mobile NOV</td><td>0</td><td>0,4588</td></tr>
-<tr><td class="d">Macedonia Mobile Others</td><td>0</td><td>0,4588</td></tr>
-<tr><td class="d">Madagascar</td><td>0</td><td>0,9926</td></tr>
-<tr><td class="d">Madagascar Mobile Madacom</td><td>0</td><td>0,7105</td></tr>
-<tr><td class="d">Madagascar Mobile Orange</td><td>0</td><td>0,7105</td></tr>
-<tr><td class="d">Madagascar Mobile Others</td><td>0</td><td>0,7105</td></tr>
-<tr><td class="d">Madagascar Mobile Telma</td><td>0</td><td>0,7105</td></tr>
-<tr><td class="d">Malawi / Mobile</td><td>0</td><td>0,3933</td></tr>
-<tr><td class="d">Malawi Mobile Others</td><td>0</td><td>0,0864</td></tr>
-<tr><td class="d">Malawi Mobile Zain</td><td>0</td><td>0,0864</td></tr>
-<tr><td class="d">Malaysia</td><td>0</td><td>0,1080</td></tr>
-<tr><td class="d">Malaysia Mobile Digi</td><td>0</td><td>0,0864</td></tr>
-<tr><td class="d">Malaysia Mobile Maxis</td><td>0</td><td>0,0864</td></tr>
-<tr><td class="d">Malaysia Mobile Others</td><td>0</td><td>0,0864</td></tr>
-<tr><td class="d">Maldives</td><td>0</td><td>1,1291</td></tr>
-<tr><td class="d">Mali</td><td>0</td><td>0,2863</td></tr>
-<tr><td class="d">Mali Mobile Orange</td><td>0</td><td>0,4640</td></tr>
-<tr><td class="d">Mali Mobile Others</td><td>0</td><td>0,4640</td></tr>
-<tr><td class="d">Malta</td><td>0</td><td>0,0712</td></tr>
-<tr><td class="d">Malta Mobile</td><td>0</td><td>0,1260</td></tr>
-<tr><td class="d">Marshall Islands</td><td>0</td><td>0,1080</td></tr>
-<tr><td class="d">Martinique</td><td>0</td><td>0,1584</td></tr>
-<tr><td class="d">Martinique Mobile Digicel</td><td>0</td><td>0,3637</td></tr>
-<tr><td class="d">Martinique Mobile Orange</td><td>0</td><td>0,3637</td></tr>
-<tr><td class="d">Martinique Mobile Others</td><td>0</td><td>0,3637</td></tr>
-<tr><td class="d">Mauritania</td><td>0</td><td>0,6460</td></tr>
-<tr><td class="d">Mauritania Mobile</td><td>0</td><td>0,7911</td></tr>
-<tr><td class="d">Mauritania Mtel MMobile</td><td>0</td><td>0,7911</td></tr>
-<tr><td class="d">Mauritius</td><td>0</td><td>0,2175</td></tr>
-<tr><td class="d">Mauritius Mobile</td><td>0</td><td>0,2093</td></tr>
-<tr><td class="d">MEXICO</td><td>0</td><td>0,0221</td></tr>
-<tr><td class="d">Mexico Mobile</td><td>0</td><td>0,0733</td></tr>
-<tr><td class="d">Micronesia</td><td>0</td><td>0,6555</td></tr>
-<tr><td class="d">Moldova</td><td>0</td><td>0,4313</td></tr>
-<tr><td class="d">Moldova Mobile</td><td>0</td><td>0,3793</td></tr>
-<tr><td class="d">Monaco</td><td>0</td><td>0,1260</td></tr>
-<tr><td class="d">Monaco Mobile EX</td><td>0</td><td>0,3583</td></tr>
-<tr><td class="d">Monaco Mobile KFOR</td><td>0</td><td>0,3583</td></tr>
-<tr><td class="d">Monaco Mobile Others</td><td>0</td><td>0,3583</td></tr>
-<tr><td class="d">Mongolia</td><td>0</td><td>0,1015</td></tr>
-<tr><td class="d">Montenegro</td><td>0</td><td>0,4956</td></tr>
-<tr><td class="d">Montenegro Mobile</td><td>0</td><td>0,5339</td></tr>
-<tr><td class="d">Montserrat</td><td>0</td><td>0,5555</td></tr>
-<tr><td class="d">Morocco</td><td>0</td><td>0,1938</td></tr>
-<tr><td class="d">MOROCCO MOBILE IAM</td><td>0</td><td>0,5684</td></tr>
-<tr><td class="d">Morocco OLO Wana</td><td>0</td><td>0,5684</td></tr>
-<tr><td class="d">Mozambique</td><td>0</td><td>0,1638</td></tr>
-<tr><td class="d">Mozambique Mobile</td><td>0</td><td>0,3422</td></tr>
-<tr><td class="d">Myanmar</td><td>0</td><td>0,2748</td></tr>
-<tr><td class="d">Myanmar Mobile</td><td>0</td><td>0,2548</td></tr>
-<tr><td class="d">Namibia</td><td>0</td><td>0,2335</td></tr>
-<tr><td class="d">Namibia Mobile</td><td>0</td><td>0,2423</td></tr>
-<tr><td class="d">Nauru</td><td>0</td><td>1,6937</td></tr>
-<tr><td class="d">Nepal</td><td>0</td><td>0,2599</td></tr>
-<tr><td class="d">Nepal Mobile</td><td>0</td><td>0,2438</td></tr>
-<tr><td class="d">Netherland Antilles</td><td>0</td><td>0,2081</td></tr>
-<tr><td class="d">Netherlands</td><td>0</td><td>0,0473</td></tr>
-<tr><td class="d">Netherlands Antilles Mobile</td><td>0</td><td>0,2145</td></tr>
-<tr><td class="d">Netherlands Antilles Saint Marteens Mobile ECC</td><td>0</td><td>0,2801</td></tr>
-<tr><td class="d">Netherlands Mobile KPN</td><td>0</td><td>0,1310</td></tr>
-<tr><td class="d">Netherlands Mobile Vodafone</td><td>0</td><td>0,1310</td></tr>
-<tr><td class="d">Netherlands Premium</td><td>0</td><td>12,5518</td></tr>
-<tr><td class="d">New Caledonia</td><td>0</td><td>0,3313</td></tr>
-<tr><td class="d">New Caledonia Mobile</td><td>0</td><td>0,3313</td></tr>
-<tr><td class="d">New Zealand</td><td>0</td><td>0,0769</td></tr>
-<tr><td class="d">New Zealand Mobile</td><td>0</td><td>0,1577</td></tr>
-<tr><td class="d">Nicaragua</td><td>0</td><td>0,1879</td></tr>
-<tr><td class="d">Nicaragua Mobile Bellsouth</td><td>0</td><td>0,3468</td></tr>
-<tr><td class="d">Nicaragua Mobile Movistar</td><td>0</td><td>0,3469</td></tr>
-<tr><td class="d">Nicaragua Mobile Others</td><td>0</td><td>0,3468</td></tr>
-<tr><td class="d">Niger</td><td>0</td><td>0,4561</td></tr>
-<tr><td class="d">Niger Mobile Celtel</td><td>0</td><td>0,3742</td></tr>
-<tr><td class="d">Niger Mobile Others</td><td>0</td><td>0,3742</td></tr>
-<tr><td class="d">Nigeria</td><td>0</td><td>0,2326</td></tr>
-<tr><td class="d">Nigeria Lagos</td><td>0</td><td>0,2326</td></tr>
-<tr><td class="d">Nigeria Mobile Globacom</td><td>0</td><td>0,1235</td></tr>
-<tr><td class="d">Nigeria Mobile MTN</td><td>0</td><td>0,1553</td></tr>
-<tr><td class="d">Nigeria Mobile Others</td><td>0</td><td>0,2137</td></tr>
-<tr><td class="d">Nigeria Mobile Zain</td><td>0</td><td>0,2137</td></tr>
-<tr><td class="d">Niue</td><td>0</td><td>2,8463</td></tr>
-<tr><td class="d">North Korea</td><td>0</td><td>0,8625</td></tr>
-<tr><td class="d">Northern Mariana Islands</td><td>0</td><td>0,1271</td></tr>
-<tr><td class="d">Norway</td><td>0</td><td>0,1040</td></tr>
-<tr><td class="d">Norway Mobile Netcom</td><td>0</td><td>0,0769</td></tr>
-<tr><td class="d">Norway Mobile Others</td><td>0</td><td>0,0769</td></tr>
-<tr><td class="d">Norway Mobile Tele2</td><td>0</td><td>0,0769</td></tr>
-<tr><td class="d">Oman</td><td>0</td><td>0,3068</td></tr>
-<tr><td class="d">Pakistan</td><td>0</td><td>0,1625</td></tr>
-<tr><td class="d">Pakistan Islamabad</td><td>0</td><td>0,1625</td></tr>
-<tr><td class="d">Pakistan Karachi</td><td>0</td><td>0,1625</td></tr>
-<tr><td class="d">Pakistan Lahore</td><td>0</td><td>0,1625</td></tr>
-<tr><td class="d">Pakistan Mobile</td><td>0</td><td>0,1625</td></tr>
-<tr><td class="d">Palau</td><td>0</td><td>0,7386</td></tr>
-<tr><td class="d">Palestine</td><td>0</td><td>0,2356</td></tr>
-<tr><td class="d">Palestine Mobile</td><td>0</td><td>0,2286</td></tr>
-<tr><td class="d">Panama</td><td>0</td><td>0,0994</td></tr>
-<tr><td class="d">Panama Mobile</td><td>0</td><td>0,2844</td></tr>
-<tr><td class="d">Papua New Guinea</td><td>0</td><td>1,4579</td></tr>
-<tr><td class="d">Paraguay</td><td>0</td><td>0,1159</td></tr>
-<tr><td class="d">Paraguay Asuncion</td><td>0</td><td>0,1159</td></tr>
-<tr><td class="d">Paraguay Mobile</td><td>0</td><td>0,2160</td></tr>
-<tr><td class="d">Paraguay Mobile Personal</td><td>0</td><td>0,2160</td></tr>
-<tr><td class="d">Paraguay Mobile Tigo</td><td>0</td><td>0,2160</td></tr>
-<tr><td class="d">Paraguay Mobile VOX</td><td>0</td><td>0,2160</td></tr>
-<tr><td class="d">Peru</td><td>0</td><td>0,0630</td></tr>
-<tr><td class="d">Peru Mobile</td><td>0</td><td>0,1080</td></tr>
-<tr><td class="d">Peru Mobile Lima</td><td>0</td><td>0,1080</td></tr>
-<tr><td class="d">Peru Rural</td><td>0</td><td>0,0911</td></tr>
-<tr><td class="d">Philippines</td><td>0</td><td>0,2570</td></tr>
-<tr><td class="d">Philippines Manila</td><td>0</td><td>0,2740</td></tr>
-<tr><td class="d">Philippines Mobile Globe</td><td>0</td><td>0,2111</td></tr>
-<tr><td class="d">Philippines Mobile Smart</td><td>0</td><td>0,2250</td></tr>
-<tr><td class="d">POLAND</td><td>0</td><td>0,1153</td></tr>
-<tr><td class="d">Poland Mobile Era</td><td>0</td><td>0,1908</td></tr>
-<tr><td class="d">Poland Mobile Others</td><td>0</td><td>0,8409</td></tr>
-<tr><td class="d">Poland Mobile P4</td><td>0</td><td>0,1908</td></tr>
-<tr><td class="d">Portugal</td><td>0</td><td>0,0498</td></tr>
-<tr><td class="d">Portugal Azores</td><td>0</td><td>0,0498</td></tr>
-<tr><td class="d">Portugal Lisbon</td><td>0</td><td>0,0498</td></tr>
-<tr><td class="d">Portugal Madeira</td><td>0</td><td>0,0498</td></tr>
-<tr><td class="d">Portugal Mobile Optimus</td><td>0</td><td>0,0775</td></tr>
-<tr><td class="d">Portugal Mobile Others</td><td>0</td><td>0,0775</td></tr>
-<tr><td class="d">Portugal Mobile TMN</td><td>0</td><td>0,0775</td></tr>
-<tr><td class="d">Portugal Mobile Vodafone</td><td>0</td><td>0,0775</td></tr>
-<tr><td class="d">PUERTO RICO</td><td>0</td><td>0,0605</td></tr>
-<tr><td class="d">Qatar</td><td>0</td><td>0,2118</td></tr>
-<tr><td class="d">Qatar Mobile</td><td>0</td><td>0,2082</td></tr>
-<tr><td class="d">Romania</td><td>0</td><td>0,0347</td></tr>
-<tr><td class="d">Romania Bucharest</td><td>0</td><td>0,1210</td></tr>
-<tr><td class="d">Romania Mobile</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">Romania Mobile Cosmote</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">Romania Mobile Orange</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">Romania Mobile Telemobil</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">Romania Mobile Vodafone</td><td>0</td><td>0,0828</td></tr>
-<tr><td class="d">Russia</td><td>0</td><td>0,1022</td></tr>
-<tr><td class="d">Russia / Moscow</td><td>0</td><td>0,1222</td></tr>
-<tr><td class="d">Russia / Overlay</td><td>0</td><td>0,1499</td></tr>
-<tr><td class="d">Russia / San Petesburg</td><td>0</td><td>0,1298</td></tr>
-<tr><td class="d">Russian Federation Mobile</td><td>0</td><td>0,3263</td></tr>
-<tr><td class="d">Rwanda</td><td>0</td><td>0,4272</td></tr>
-<tr><td class="d">Rwanda Mobile</td><td>0</td><td>0,4272</td></tr>
-<tr><td class="d">Saint Helena</td><td>0</td><td>3,5190</td></tr>
-<tr><td class="d">Saint Kitts and Nevis</td><td>0</td><td>0,3443</td></tr>
-<tr><td class="d">Saint Lucia</td><td>0</td><td>0,3672</td></tr>
-<tr><td class="d">Saint Pierre and Miquelon</td><td>0</td><td>0,6691</td></tr>
-<tr><td class="d">Saint Vincent Grenadines</td><td>0</td><td>0,4497</td></tr>
-<tr><td class="d">Samoa</td><td>0</td><td>0,1611</td></tr>
-<tr><td class="d">Samoa Mobile</td><td>0</td><td>0,3627</td></tr>
-<tr><td class="d">San Marino</td><td>0</td><td>0,1216</td></tr>
-<tr><td class="d">Sao Tome and Principe</td><td>0</td><td>2,6127</td></tr>
-<tr><td class="d">Saudi Arabia</td><td>0</td><td>0,1800</td></tr>
-<tr><td class="d">Saudi Arabia Mobile Mobily</td><td>0</td><td>0,2731</td></tr>
-<tr><td class="d">Saudi Arabia Mobile Others</td><td>0</td><td>0,2731</td></tr>
-<tr><td class="d">Saudi Arabia Mobile STC</td><td>0</td><td>0,2731</td></tr>
-<tr><td class="d">Saudi Arabia Mobile Zain</td><td>0</td><td>0,2731</td></tr>
-<tr><td class="d">Saudi Arabia Riyadh</td><td>0</td><td>0,2731</td></tr>
-<tr><td class="d">Senegal</td><td>0</td><td>0,6421</td></tr>
-<tr><td class="d">Seychelles</td><td>0</td><td>0,7406</td></tr>
-<tr><td class="d">Sierra Leone</td><td>0</td><td>0,6900</td></tr>
-<tr><td class="d">Sierra Leone Mobile Africel</td><td>0</td><td>0,6688</td></tr>
-<tr><td class="d">Sierra Leone Mobile Celtel</td><td>0</td><td>0,6688</td></tr>
-<tr><td class="d">Sierra Leone Mobile Commium</td><td>0</td><td>0,6688</td></tr>
-<tr><td class="d">Sierra Leone Mobile Datatel</td><td>0</td><td>0,6688</td></tr>
-<tr><td class="d">Sierra Leone Mobile Millicom</td><td>0</td><td>0,6688</td></tr>
-<tr><td class="d">Sierra Leone Mobile Others</td><td>0</td><td>0,6688</td></tr>
-<tr><td class="d">Singapore</td><td>0</td><td>0,0567</td></tr>
-<tr><td class="d">Singapore Mobile</td><td>0</td><td>0,0567</td></tr>
-<tr><td class="d">Singapore VoIP</td><td>0</td><td>0,0756</td></tr>
-<tr><td class="d">Slovakia</td><td>0</td><td>0,1296</td></tr>
-<tr><td class="d">Slovakia Bratislava</td><td>0</td><td>0,1555</td></tr>
-<tr><td class="d">Slovakia Mobile EuroTel</td><td>0</td><td>0,2552</td></tr>
-<tr><td class="d">SLOVAKIA MOBILE ORANGE</td><td>0</td><td>0,2552</td></tr>
-<tr><td class="d">Slovakia Mobile Others</td><td>0</td><td>0,2552</td></tr>
-<tr><td class="d">Slovenia</td><td>0</td><td>0,0907</td></tr>
-<tr><td class="d">Slovenia Mobile IPKO</td><td>0</td><td>0,1728</td></tr>
-<tr><td class="d">Slovenia Mobile Mobitel</td><td>0</td><td>0,1728</td></tr>
-<tr><td class="d">Slovenia Mobile Others</td><td>0</td><td>0,1728</td></tr>
-<tr><td class="d">Slovenia Mobile SI</td><td>0</td><td>0,1728</td></tr>
-<tr><td class="d">Solomon Islands</td><td>0</td><td>1,9849</td></tr>
-<tr><td class="d">Somalia</td><td>0</td><td>0,6210</td></tr>
-<tr><td class="d">Somalia Mobile</td><td>0</td><td>0,6210</td></tr>
-<tr><td class="d">South Africa</td><td>0</td><td>0,2117</td></tr>
-<tr><td class="d">South Africa Cape Town</td><td>0</td><td>0,2117</td></tr>
-<tr><td class="d">South Africa Johannesburg</td><td>0</td><td>0,2550</td></tr>
-<tr><td class="d">South Africa Mobile MTN</td><td>0</td><td>0,2550</td></tr>
-<tr><td class="d">South Africa Mobile Others</td><td>0</td><td>0,1384</td></tr>
-<tr><td class="d">South Africa Mobile Vodacom</td><td>0</td><td>0,2149</td></tr>
-<tr><td class="d">South Korea</td><td>0</td><td>0,1216</td></tr>
-<tr><td class="d">South Korea Mobile</td><td>0</td><td>0,1262</td></tr>
-<tr><td class="d">Sri Lanka</td><td>0</td><td>0,2536</td></tr>
-<tr><td class="d">Sri Lanka Mobile</td><td>0</td><td>0,2943</td></tr>
-<tr><td class="d">Sudan</td><td>0</td><td>0,2792</td></tr>
-<tr><td class="d">Sudan Mobile</td><td>0</td><td>0,3277</td></tr>
-<tr><td class="d">Surinam</td><td>0</td><td>0,2379</td></tr>
-<tr><td class="d">Suriname Mobile</td><td>0</td><td>0,2760</td></tr>
-<tr><td class="d">Swaziland</td><td>0</td><td>0,2010</td></tr>
-<tr><td class="d">Swaziland Mobile</td><td>0</td><td>0,2703</td></tr>
-<tr><td class="d">SWEDEN</td><td>0</td><td>0,0365</td></tr>
-<tr><td class="d">Sweden Mobile Comviq</td><td>0</td><td>0,1216</td></tr>
-<tr><td class="d">Sweden Mobile Hi3G</td><td>0</td><td>0,1216</td></tr>
-<tr><td class="d">SWEDEN MOBILE OTHERS</td><td>0</td><td>0,1216</td></tr>
-<tr><td class="d">SWEDEN MOBILE TELENOR</td><td>0</td><td>0,1216</td></tr>
-<tr><td class="d">Switzerland</td><td>0</td><td>0,1222</td></tr>
-<tr><td class="d">Switzerland Mobile</td><td>0</td><td>0,2345</td></tr>
-<tr><td class="d">Switzerland Mobile Orange</td><td>0</td><td>0,1987</td></tr>
-<tr><td class="d">Switzerland Mobile Sunrise</td><td>0</td><td>0,1987</td></tr>
-<tr><td class="d">Switzerland Mobile Swisscom</td><td>0</td><td>0,1638</td></tr>
-<tr><td class="d">Switzerland Mobile Tele2</td><td>0</td><td>0,2345</td></tr>
-<tr><td class="d">Syria</td><td>0</td><td>0,2984</td></tr>
-<tr><td class="d">Syria Mobile</td><td>0</td><td>0,2366</td></tr>
-<tr><td class="d">Taiwan</td><td>0</td><td>0,1323</td></tr>
-<tr><td class="d">Taiwan Mobile</td><td>0</td><td>0,1849</td></tr>
-<tr><td class="d">Tajikistan</td><td>0</td><td>0,2722</td></tr>
-<tr><td class="d">Tajikistan Mobile</td><td>0</td><td>0,2237</td></tr>
-<tr><td class="d">Tanzania</td><td>0</td><td>0,4057</td></tr>
-<tr><td class="d">Tanzania Mobile Celtel</td><td>0</td><td>0,4057</td></tr>
-<tr><td class="d">Tanzania Mobile Others</td><td>0</td><td>0,4057</td></tr>
-<tr><td class="d">Tanzania Mobile Tigo</td><td>0</td><td>0,4057</td></tr>
-<tr><td class="d">Tanzania Mobile Vodacom</td><td>0</td><td>0,4057</td></tr>
-<tr><td class="d">Thailand</td><td>0</td><td>0,2520</td></tr>
-<tr><td class="d">Thailand Mobile</td><td>0</td><td>0,2520</td></tr>
-<tr><td class="d">Togo</td><td>0</td><td>0,4704</td></tr>
-<tr><td class="d">Tokelau</td><td>0</td><td>1,5732</td></tr>
-<tr><td class="d">Tonga</td><td>0</td><td>1,3110</td></tr>
-<tr><td class="d">Trinidad and Tobago</td><td>0</td><td>0,2858</td></tr>
-<tr><td class="d">Trinidad and Tobago Mobile</td><td>0</td><td>0,3755</td></tr>
-<tr><td class="d">Tunisia</td><td>0</td><td>1,0005</td></tr>
-<tr><td class="d">Tunisia Mobile Orange</td><td>0</td><td>1,0005</td></tr>
-<tr><td class="d">Tunisia Mobile Others</td><td>0</td><td>1,0005</td></tr>
-<tr><td class="d">Tunisia Mobile Tunisiana</td><td>0</td><td>1,0005</td></tr>
-<tr><td class="d">Tunisia Tunis</td><td>0</td><td>1,0005</td></tr>
-<tr><td class="d">Turkey</td><td>0</td><td>0,4743</td></tr>
-<tr><td class="d">Turkey / Mobile Other</td><td>0</td><td>0,7446</td></tr>
-<tr><td class="d">Turkey Adana</td><td>0</td><td>0,4743</td></tr>
-<tr><td class="d">Turkey Ankara</td><td>0</td><td>0,4743</td></tr>
-<tr><td class="d">Turkey Antalya</td><td>0</td><td>0,4743</td></tr>
-<tr><td class="d">Turkey Istanbul</td><td>0</td><td>0,4743</td></tr>
-<tr><td class="d">Turkey Izmir</td><td>0</td><td>0,4743</td></tr>
-<tr><td class="d">Turkmenistan</td><td>0</td><td>0,2131</td></tr>
-<tr><td class="d">Turks and Caicos</td><td>0</td><td>0,3375</td></tr>
-<tr><td class="d">Tuvalu</td><td>0</td><td>2,5909</td></tr>
-<tr><td class="d">UAE</td><td>0</td><td>0,2044</td></tr>
-<tr><td class="d">UAE Abu Dhabi</td><td>0</td><td>0,2044</td></tr>
-<tr><td class="d">UAE Dubai</td><td>0</td><td>0,2044</td></tr>
-<tr><td class="d">UAE Mobile DU</td><td>0</td><td>0,2044</td></tr>
-<tr><td class="d">UAE Mobile Others</td><td>0</td><td>0,2044</td></tr>
-<tr><td class="d">Uganda</td><td>0</td><td>0,4813</td></tr>
-<tr><td class="d">Uganda Kampala</td><td>0</td><td>0,4011</td></tr>
-<tr><td class="d">Ukraine</td><td>0</td><td>0,1954</td></tr>
-<tr><td class="d">Ukraine Mobile</td><td>0</td><td>0,9470</td></tr>
-<tr><td class="d">Ukraine Mobile Astelit</td><td>0</td><td>0,9470</td></tr>
-<tr><td class="d">Ukraine Mobile Beeline</td><td>0</td><td>0,9470</td></tr>
-<tr><td class="d">Ukraine Mobile Kievstar</td><td>0</td><td>0,9470</td></tr>
-<tr><td class="d">Ukraine Mobile UMC</td><td>0</td><td>0,9470</td></tr>
-<tr><td class="d">United Kingdom</td><td>0</td><td>0,0315</td></tr>
-<tr><td class="d">United Kingdom London</td><td>0</td><td>0,0315</td></tr>
-<tr><td class="d">United Kingdom Mobile</td><td>0</td><td>0,2263</td></tr>
-<tr><td class="d">United Kingdom Mobile H3G</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile Lycamobile</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile O2</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile Orange</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile Others</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile PNS</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile TMobile</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Mobile Vodafone</td><td>0</td><td>0,0611</td></tr>
-<tr><td class="d">United Kingdom Special NTS 843</td><td>0</td><td>0,2138</td></tr>
-<tr><td class="d">United Kingdom Special NTS 844</td><td>0</td><td>0,2138</td></tr>
-<tr><td class="d">United Kingdom Special NTS 845</td><td>0</td><td>0,2138</td></tr>
-<tr><td class="d">United Kingdom Special NTS 870</td><td>0</td><td>0,2138</td></tr>
-<tr><td class="d">Universal Personal Telecom</td><td>0</td><td>0,2138</td></tr>
-<tr><td class="d">Uruguay</td><td>0</td><td>0,1321</td></tr>
-<tr><td class="d">Uruguay Mobile</td><td>0</td><td>0,2514</td></tr>
-<tr><td class="d">Uruguay Mobile Ancel</td><td>0</td><td>0,2514</td></tr>
-<tr><td class="d">Uruguay Mobile Claro</td><td>0</td><td>0,2514</td></tr>
-<tr><td class="d">Uruguay Mobile Movistar</td><td>0</td><td>0,2514</td></tr>
-<tr><td class="d">Uruguay Montevideo</td><td>0</td><td>0,1199</td></tr>
-<tr><td class="d">USA</td><td>0</td><td>0,0561</td></tr>
-<tr><td class="d">USA Lata 834 Hawaii</td><td>0</td><td>0,1008</td></tr>
-<tr><td class="d">Uzbekistan</td><td>0</td><td>0,2191</td></tr>
-<tr><td class="d">Vanuatu</td><td>0</td><td>1,2144</td></tr>
-<tr><td class="d">Vatican City</td><td>0</td><td>0,1445</td></tr>
-<tr><td class="d">Venezuela</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Venezuela Caracas</td><td>0</td><td>0,1399</td></tr>
-<tr><td class="d">Venezuela Mobile</td><td>0</td><td>0,1890</td></tr>
-<tr><td class="d">Venezuela Mobile Movilnet</td><td>0</td><td>0,1672</td></tr>
-<tr><td class="d">Vietnam</td><td>0</td><td>0,1496</td></tr>
-<tr><td class="d">Vietnam Hanoi</td><td>0</td><td>0,1557</td></tr>
-<tr><td class="d">Vietnam Ho Chi Minh City</td><td>0</td><td>0,1557</td></tr>
-<tr><td class="d">Vietnam Mobile</td><td>0</td><td>0,1557</td></tr>
-<tr><td class="d">Virgin Islands</td><td>0</td><td>0,1287</td></tr>
-<tr><td class="d">Wallis and Futuna</td><td>0</td><td>1,0868</td></tr>
-<tr><td class="d">Yemen</td><td>0</td><td>1,6646</td></tr>
-<tr><td class="d">Zambia</td><td>0</td><td>0,4264</td></tr>
-<tr><td class="d">Zambia Mobile</td><td>0</td><td>0,4264</td></tr>
-<tr><td class="d">Zimbabwe</td><td>0</td><td>0,4485</td></tr>
-<tr><td class="d">Zimbabwe Mobile Econet</td><td>0</td><td>0,6724</td></tr>
-<tr><td class="d">Zimbabwe Mobile Others</td><td>0</td><td>0,6724</td></tr>
-<tr><td class="d">Zimbabwe Mobile Telecel</td><td>0</td><td>0,6724</td></tr>
-    </tbody>
-  </table>
-  </div>
-  <div class="sin-resultados" id="vacio">Ningún destino coincide con la búsqueda.</div>
+  <h2 id="h2int"></h2>
+  <p class="aclaracion" id="notaInt"></p>
+  <div class="tabla-scroll"><table id="t-int">
+    <thead><tr><th class="d" id="hDest2"></th><th id="hEst2"></th><th id="hMin2"></th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="sin-resultados" id="vacio"></div>
 
-  <div class="notas">
-    <p>Precios válidos salvo error tipográfico.</p>
-    <p>Precios en euros, sin IVA.</p>
-  </div>
-  <div class="legal">
-    NIMBUS TELECOM, S.L. - B55329643 - C/ TRAMUNTANA, 99 - 17411 VIDRERES<br>
-    Servicio de móvil y fijo prestado por XFERA MÓVILES, S.A.U. con CIF A82528548 y domicilio social en Parque Empresarial "La Finca", Paseo del Club Deportivo, 1, Edif. 8, 28223 - Pozuelo de Alarcón, (Madrid - España).
-  </div>
+  <div class="notas"><p id="nota1"></p><p id="nota2"></p></div>
+  <div class="legal">NIMBUS TELECOM, S.L. - B55329643 - C/ TRAMUNTANA, 99 - 17411 VIDRERES<br>Servicio de móvil y fijo prestado por XFERA MÓVILES, S.A.U. con CIF A82528548 y domicilio social en Parque Empresarial "La Finca", Paseo del Club Deportivo, 1, Edif. 8, 28223 - Pozuelo de Alarcón, (Madrid - España).</div>
 </div>
 <script>
-function normalizar(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
-const tablas = ['t-nac','t-int'].map(id => document.getElementById(id));
-const filas = tablas.map(t => Array.from(t.tBodies[0].rows));
-const vacio = document.getElementById('vacio');
-filas.forEach(fs => fs.forEach(tr => tr.dataset.k = normalizar(tr.cells[0].textContent)));
-document.getElementById('buscador').addEventListener('input', e => {
-  const f = normalizar(e.target.value);
-  let total = 0;
-  filas.forEach((fs, i) => {
-    let n = 0;
-    fs.forEach(tr => { const ok = !f || tr.dataset.k.includes(f); tr.style.display = ok ? '' : 'none'; if (ok) n++; });
-    tablas[i].style.display = n ? '' : 'none';
-    tablas[i].previousElementSibling; total += n;
-  });
-  vacio.style.display = total ? 'none' : 'block';
+const UI = {"ca":{"titulo":"Tarifes telefonia fixa","sub1":"Preus de les trucades fetes des d'una línia fixa de Nimbus Telecom.","sub2":"Tots els preus són sense IVA.","fecha":"VIGENT 2026","buscar":"Cercar destinació…","h2nac":"Tarifes des de fix a números nacionals","h2int":"Tarifes des de fix a números internacionals","hDest":"Destinació","hEst":"Establiment","hMin":"Preu per minut","hMinSin":"Preu per minut (sense IVA)","notaInt":"Els noms dels destins internacionals es mantenen tal com apareixen al tarifari majorista, en anglès.","nota1":"Preus vàlids llevat d'error tipogràfic.","nota2":"Preus en euros, sense IVA.","vacio":"Cap destinació coincideix amb la cerca.","res":"resultats","res1":"resultat"},"es":{"titulo":"Tarifas telefonía fija","sub1":"Precios de las llamadas realizadas desde una línea fija de Nimbus Telecom.","sub2":"Todos los precios son sin IVA.","fecha":"VIGENTE 2026","buscar":"Buscar destino…","h2nac":"Tarifas desde fijo a números nacionales","h2int":"Tarifas desde fijo a números internacionales","hDest":"Destino","hEst":"Establecimiento","hMin":"Precio por minuto","hMinSin":"Precio por minuto (sin IVA)","notaInt":"Los nombres de los destinos internacionales se mantienen tal y como figuran en el tarifario mayorista, en inglés.","nota1":"Precios válidos salvo error tipográfico.","nota2":"Precios en euros, sin IVA.","vacio":"Ningún destino coincide con la búsqueda.","res":"resultados","res1":"resultado"},"en":{"titulo":"Landline rates","sub1":"Prices for calls made from a Nimbus Telecom landline.","sub2":"All prices exclude VAT.","fecha":"VALID 2026","buscar":"Search destination…","h2nac":"Landline to domestic numbers","h2int":"Landline to international numbers","hDest":"Destination","hEst":"Connection","hMin":"Price per minute","hMinSin":"Price per minute (excl. VAT)","notaInt":"International destination names are kept exactly as they appear in the wholesale rate sheet.","nota1":"Prices valid barring typographical error.","nota2":"Prices in euros, excluding VAT.","vacio":"No destination matches your search.","res":"results","res1":"result"}};
+const NACD = {"es":["Bomberos (080 y 085)","Guardia Civil (062)","Policía Autonómica (088)","Policía Local (092)","Policía Nacional (091)","Protección Civil (1006)","Emergencias España (112)","Fijos nacionales","España teléfonos gratuitos","España móvil nacional","España número personal nacional (5188 y 704)","España premium 1489","España premium 806","España premium 902 802","España coste compartido 801 901","España especial 1002","España especial 1004","Tráfico y Auxilio en Carretera (011)","Llama 060","Urgencias médicas (061)"],"ca":["Bombers (080 i 085)","Guàrdia Civil (062)","Policia Autonòmica (088)","Policia Local (092)","Policia Nacional (091)","Protecció Civil (1006)","Emergències Espanya (112)","Fixos nacionals","Espanya telèfons gratuïts","Espanya mòbil nacional","Espanya número personal nacional (5188 i 704)","Espanya premium 1489","Espanya premium 806","Espanya premium 902 802","Espanya cost compartit 801 901","Espanya especial 1002","Espanya especial 1004","Trànsit i Auxili a la Carretera (011)","Truca 060","Urgències mèdiques (061)"],"en":["Fire service (080 and 085)","Guardia Civil (062)","Regional police (088)","Local police (092)","National police (091)","Civil Protection (1006)","Emergency services Spain (112)","Domestic landlines","Spain freephone numbers","Spain domestic mobile","Spain personal numbers (5188 and 704)","Spain premium 1489","Spain premium 806","Spain premium 902 802","Spain shared cost 801 901","Spain special 1002","Spain special 1004","Traffic and roadside assistance (011)","Call 060","Medical emergencies (061)"]};
+const NACV = [["0,0474","0,0000"],["0,0883","0,0155"],["0,0000","0,0000"],["0,0473","0,0000"],["0,0473","0,0000"],["0,0000","0,0000"],["0,0000","0,0000"],["0,0000","0,0150"],["0,0000","0,0000"],["0,0000","0,0450"],["0,1145","0,0915"],["0,0000","0,0000"],["1,2448","2,2253"],["0,2502","0,3188"],["0,0000","0,0390"],["0,0000","0,0000"],["0,0000","0,0000"],["0,2131","0,1278"],["0,0150","0,0000"],["0,0897","0,1984"]];
+const INTL = [["Afghanistan","0,3030"],["Afghanistan Areeba Mobile","0,2977"],["Afghanistan At Mobile","0,2833"],["Afghanistan Mobile AWCC","0,3030"],["Afghanistan Mobile Etisalat","0,3030"],["Afghanistan Mobile MTN","0,3030"],["Afghanistan Mobile Others","0,3030"],["Afghanistan Mobile Roshan","0,3030"],["Alaska","0,1728"],["Albania","0,2391"],["Albania Amc Fixed","0,2391"],["Albania Fixed AMC","0,2391"],["Albania Mobile AMC","0,5191"],["Albania Mobile Others","0,5191"],["Albania Mobile Plus","0,6229"],["Albania Mobile Vodafone","0,5191"],["Albania Tirana","0,2070"],["Algeria","0,2174"],["Algeria Mobile Djezzy","0,1944"],["Algeria Mobile MPTA","0,7818"],["Algeria Mobile Orascom","1,3921"],["Algeria Mobile Other","0,9512"],["ANDORRA","0,0839"],["Andorra Mobile","0,3074"],["Angola","0,1980"],["Angola Mobile Others","0,3097"],["Angola Mobile Unitel","0,3097"],["Anguilla","0,3589"],["Antarctica","1,8036"],["Antarctica Ex Norfolk","1,9007"],["Antigua and Barbuda","0,3927"],["Argentina","0,1002"],["Argentina Buenos Aires","0,0284"],["Argentina Cordoba","0,0838"],["Argentina Mobile","0,1921"],["Armenia","0,2772"],["Armenia Erevan","0,3645"],["Armenia Mobile","0,3645"],["Aruba","0,2727"],["Aruba / Mobile","0,3368"],["Ascension","2,4840"],["Australia","0,0857"],["Australia Canberra","0,0857"],["Australia Cocos&Christmas Isla","0,0911"],["Australia Melbourne","0,0857"],["Australia Mobile Optus","0,1643"],["Australia Mobile Others","0,1643"],["Australia Mobile Telstra","0,1643"],["Australia Mobile Vodafone","0,1643"],["Australia Shared Cost","0,2173"],["Australia Sydney","0,0857"],["Austria","0,0347"],["Austria Freephone","0,4829"],["Austria Linz","0,0347"],["AUSTRIA MOBILE","0,1399"],["Austria Mobile H3G","1,0211"],["AUSTRIA MOBILE HUTCHISON","0,2016"],["Austria Mobile Mobilkom","0,1399"],["Austria Mobile One","0,2404"],["Austria Mobile Others","0,1399"],["Austria Mobile Tele2","0,1399"],["Austria Mobile Telering","0,1399"],["Austria Mobile Tmobile","0,1399"],["Austria Mobile Yesss","0,1399"],["AUSTRIA PERSONAL NUMBER","0,1568"],["Austria Salzburg","0,0347"],["Austria Shared Cost","0,0347"],["Austria Vienna","0,0347"],["Azerbaijan","0,4992"],["Azerbaijan Mobile","0,5755"],["Bahamas","0,2028"],["BAHAMAS / MOBILE","0,3041"],["Bahrain","0,2469"],["Bahrain Mobile Batelco","0,2518"],["Bahrain Mobile Others","0,2518"],["Bahrain Mobile Zain","0,2518"],["Bangladesh","0,1926"],["Bangladesh Chittagong","0,1926"],["Bangladesh Dhaka","0,1890"],["Bangladesh Mobile Grameen","0,1890"],["Bangladesh Mobile Others","0,1890"],["Bangladesh Sylhet","0,1890"],["Bosnia Mobile BH","0,4313"],["Bosnia Mobile HPT","0,4313"],["Bosnia Mobile Others","0,4313"],["Bosnia Mobile SRPS","0,4313"],["Bosnia SRPSKE","0,4313"],["Botswana","0,2067"],["Botswana Mobile","0,2753"],["Brazil","0,1350"],["Brazil Bello Horizonte","0,1350"],["Brazil Mobile","0,1350"],["Brazil Otras Ciudades 1","0,1350"],["Brazil Otras Ciudades 2","0,0378"],["Brazil Rio De Janeiro","0,0378"],["Brazil Sao Paulo Capital","0,0378"],["BRAZIL SAO PAULO RESTO","0,0378"],["British Virgin Islands","0,5348"],["Brunei","0,1570"],["Brunei Mobile Darussalam","0,1483"],["Bulgaria","0,0819"],["Bulgaria Mobile","0,3623"],["Bulgaria Mobile Globul","0,3623"],["Bulgaria Mobile Max","0,3623"],["Bulgaria Mobile Mobiltel","0,3623"],["Bulgaria OLO","0,3623"],["Bulgaria Sofia","0,3623"],["Burkina Faso","0,4302"],["Burkina Faso Mobile Celtel","0,5090"],["Burkina Faso Mobile Others","0,5090"],["Burundi","0,3000"],["Burundi Mobile Onatel","0,4340"],["Burundi Mobile Others","0,4340"],["Burundi Mobile Ucom","0,4340"],["Cambodia","0,1620"],["Cambodia Mobile","0,2205"],["Cameroon","0,4819"],["Cameroon Mobile MTN","0,4306"],["Cameroon Mobile Others","0,4306"],["Canada Northwestel","0,0315"],["Canada Other","0,0315"],["Cape Verde","0,2846"],["Cape Verde / Mobile","0,4368"],["Cayman Islands","0,1980"],["Cayman Islands Mobile","0,2810"],["Central African Republic","0,5619"],["Chad","0,4761"],["Chad Mobile Millicom","0,4996"],["Chad Mobile Sotel","0,4996"],["Chad Mobile Zain","0,4996"],["CHILE","0,0806"],["Chile Mobile","0,1411"],["Chile Rural","0,2919"],["Chile Santiago","0,0806"],["China","0,0832"],["China Beijing","0,0832"],["China Guangzhou","0,0832"],["China Mobile","0,0832"],["China Mobile Telecom","0,0832"],["China Mobile Unicom","0,0832"],["China Shanghai","0,0832"],["China Shenzhen","0,1303"],["Colombia","0,0947"],["Colombia Armenia","0,0947"],["Colombia Baranquilla","0,0947"],["Colombia Bogota","0,0947"],["Colombia Cali","0,0947"],["Colombia Cartagena","0,0947"],["Colombia LEX","0,0947"],["Colombia Manizales","0,0947"],["Colombia Medellin","0,0947"],["Colombia Mobile","0,1037"],["COLOMBIA MOBILE COMCEL","0,1037"],["Colombia Mobile Movistar","0,1037"],["Colombia Mobile Tigo","0,1037"],["Colombia Pereira","0,1303"],["Comoros","0,4756"],["Comoros Mobile","0,9660"],["CONGO","0,8453"],["Congo Democratic Republic","0,6555"],["Congo Democratic Republic Mobile Celtel","0,6555"],["Congo Democratic Republic Mobile Others","0,6555"],["Congo Democratic Republic Mobile SAIT","0,6555"],["Congo Democratic Republic Mobile Vodacom","0,6555"],["Congo Mobile Celtel","0,8453"],["Congo Mobile MTN","0,8453"],["Congo Mobile Others","0,8453"],["Cook Islands","1,0557"],["COSTA RICA","0,0979"],["Costa Rica Mobile","0,1730"],["Croatia","0,1944"],["Croatia Mobile Tele2","0,2556"],["Croatia Mobile TMobile","0,2556"],["Cuba","0,9488"],["Cuba Guantanamo Bay","0,1178"],["Cuba Mobile","0,9488"],["Cyprus","0,0945"],["Cyprus Mobile","0,1440"],["Cyprus Mobile MTN","0,2678"],["Czech Republic","0,1040"],["Czech Republic Mobile O2","0,1800"],["Czech Republic Mobile Others","0,1800"],["Czech Republic Mobile TMobile","0,1800"],["Czech Republic Mobile Vodafone","0,1800"],["Czech Republic Prague","0,1800"],["Denmark","0,0208"],["Denmark Mobile","0,0617"],["DENMARK MOBILE TDC","0,0630"],["Denmark Mobile Telia","0,0662"],["Denmark TDC MMobile","0,1355"],["Diego Garcia","3,1050"],["Djibouti","0,4306"],["Djibouti Mobile","0,4306"],["Dominica","0,2565"],["Dominican Republic","0,1692"],["Dominican Republic Mobile","0,3647"],["East Timor","1,1696"],["Ecuador","0,2669"],["Ecuador Mobile Alegro","0,3249"],["Ecuador Mobile Movistar","0,2441"],["Ecuador Mobile Porta","0,2597"],["Egypt","0,2070"],["Egypt Cairo","0,2070"],["Egypt Mobile Etisalat","0,2493"],["Egypt Mobile Mobinil","0,2493"],["Egypt Mobile Others","0,2493"],["El Salvador","0,2333"],["El Salvador Mobile CTE","0,2463"],["Equatorial Guinea","0,6264"],["Eritrea","0,2753"],["Eritrea Mobile","0,3232"],["ESTONIA","0,0945"],["Estonia Mobile","0,4396"],["Ethiopia","0,3229"],["Ethiopia Mobile Addis Ababa","0,2850"],["Falkland Islands","2,9153"],["Faroe Islands","0,2138"],["Faroe Islands Mobile","0,1856"],["Fiji","0,9936"],["Finland","0,1500"],["Finland / Premium","0,1645"],["Finland Mobile","0,1224"],["Finland NGN","0,2045"],["FRANCE","0,0170"],["France / Mobile Bouygues, Orange, SFR, Other","0,0990"],["FRANCE MOBILE","0,0990"],["France Mobile Bouygues","0,0990"],["France Mobile Orange","0,0990"],["France Mobile SFR","0,0990"],["French Guyana","0,2025"],["French Guyana Mobile","0,1800"],["French Polynesia","0,3367"],["French Polynesia Mobile","0,3367"],["Gabon","0,4986"],["Gabon Mobile Celtel","0,7961"],["Gambia","0,7357"],["Gambia Mobile Africell","0,7357"],["Gambia Mobile Comium","0,7357"],["Gambia Mobile Others","0,7357"],["Georgia","0,2230"],["Georgia Abkhazia","0,2230"],["Georgia Mobile","0,3639"],["Georgia Mobile Geocell","0,3639"],["Georgia Mobile Magticom","0,3639"],["Germany","0,0170"],["Germany Mobile 02","0,1027"],["Germany Mobile EPlus","0,1386"],["Germany Mobile Vistream","0,0893"],["Germany Mobile Vodafone","0,0824"],["Germany NGN, VoIP","0,0315"],["Ghana","0,3673"],["Ghana Accra","0,3673"],["Ghana Mobile Mobiltel","0,3477"],["Ghana Mobile MTN","0,3477"],["Ghana Mobile Others","0,3477"],["Ghana Mobile Vodafone","0,3477"],["Gibraltar","0,1379"],["Gibraltar Mobile","0,2053"],["GREECE","0,0756"],["Greece Athens","0,0756"],["Greece Mobile Cosmote","0,1368"],["Greece Mobile Others","0,1368"],["Greece Mobile Vodafone","0,1368"],["Greece Mobile Wind","0,1368"],["Greenland","0,4357"],["Greenland Mobile","0,4357"],["Grenada","0,3103"],["Grenada Mobile","0,2799"],["Guadeloupe","0,0857"],["Guadeloupe Mobile Digicel","0,2163"],["Guadeloupe Mobile Orange","0,2163"],["Guadeloupe Mobile Others","0,2163"],["Guam","0,1008"],["Guatemala","0,2790"],["Guatemala Mobile Comcel","0,2455"],["Guatemala Mobile Others","0,2455"],["Guatemala Mobile PCS","0,2455"],["Guatemala Mobile Telefonica","0,2455"],["Guinea","0,4874"],["Guinea / Mobile Orange","0,6037"],["Guinea Bissau","1,1385"],["Guinea Bissau Mobile Others","0,6587"],["Guyana","0,3600"],["Guyana Mobile","0,3569"],["Haiti","0,3600"],["Haiti Mobile Comcel","0,4204"],["Haiti Mobile Digicel","0,4204"],["Haiti Mobile Haitel","0,4204"],["Haiti Mobile Others","0,4204"],["Honduras","0,1953"],["Honduras Mobile Claro","0,2241"],["Honduras Mobile Digicel","0,2241"],["Honduras Mobile Hondutel","0,2241"],["Honduras Mobile Tigo","0,2241"],["Hong Kong","0,0947"],["Hong Kong Mobile","0,1296"],["Hungary","0,0523"],["Hungary Budapest","0,0523"],["Hungary Mobile Pannon","0,1152"],["Hungary Mobile Vodafone","0,1152"],["Hungary Mobile Westel","0,1152"],["Iceland","0,0693"],["Iceland Mobile","0,1080"],["India","0,1090"],["India Ahmedabad","0,0828"],["India Bangalore","0,0828"],["India Baroda","0,0828"],["India Bombay","0,0828"],["India Calcutta","0,0828"],["India Hyderabad","0,0828"],["India Madras","0,0828"],["India Mobile BSNL","0,0828"],["India Mobile Others","0,0828"],["India New Delhi","0,0828"],["India Pune","0,0828"],["India Punjab","0,0828"],["Indonesia","0,2039"],["Indonesia Jakarta","0,1703"],["Indonesia Mobile","0,1868"],["Iran","0,2939"],["Iran Mobile","0,2466"],["Iran Tehran","0,2055"],["Iraq","0,2405"],["Iraq Baghdad","0,1872"],["Iraq Mobile Asiacell","0,3017"],["Iraq Mobile Atheer","0,3017"],["Iraq Mobile Korek","0,3017"],["Iraq Mobile Orascom","0,3017"],["Iraq Mobile Others","0,3017"],["Iraq Mobile Sana","0,3017"],["Ireland","0,0586"],["Ireland Dublin","0,0586"],["Ireland Mobile H3G","0,1604"],["Ireland Mobile Meteror","0,1604"],["Ireland Mobile O2","0,1604"],["Ireland Mobile Others","0,1604"],["Ireland Mobile Vodafone","0,1604"],["Ireland Personal Number","0,1604"],["Ireland Shannon","0,1604"],["Ireland VoIP","0,2617"],["Israel","0,0693"],["Israel Mobile","0,1386"],["Israel Tel Aviv","0,0284"],["Italy","0,0315"],["Italy Mobile H3G","0,0857"],["Italy Mobile Noverca","0,0943"],["Italy Mobile TIM","0,0803"],["Italy Mobile Vodafone Omnitel","0,1355"],["Italy Shared Cost","0,6847"],["Ivory Coast","0,4313"],["Jamaica","0,3425"],["Jamaica Mobile CWJ","0,3425"],["Jamaica Mobile Digicel","0,3425"],["Jamaica Mobile Others","0,3425"],["Japan","0,0889"],["Japan Mobile","0,1595"],["Japan Tokyo","0,0889"],["Jordan","0,1501"],["Jordan Amman","0,2348"],["Jordan Mobile Fastlink","0,1958"],["Jordan Mobile Others","0,1958"],["Kazakhstan","0,1771"],["Kazakhstan Mobile","0,2719"],["Kenya","0,2501"],["Kenya Mobile Celtel","0,3566"],["Kenya Mobile Others","0,3566"],["Kenya Mobile Safarikom","0,3566"],["Kenya Nairobi","0,1631"],["Kiribati","1,4231"],["Kuwait","0,1805"],["Kuwait Mobile Others","0,1805"],["Kuwait Mobile Wataniya","0,1805"],["Kuwait Mobile Zain","0,1805"],["Kyrgyzstan","0,2988"],["Kyrgyzstan Mobile","0,2988"],["Laos","0,2030"],["Latvia","0,1800"],["Latvia Mobile","1,3973"],["Lebanon","0,2273"],["Lebanon Mobile","0,2651"],["Lesotho","0,6148"],["Liberia","0,4761"],["Liberia Mobile Cellcom","0,4658"],["Liberia Mobile Comium","0,4658"],["Liberia Mobile MTN","0,4658"],["Liberia Mobile Others","0,4658"],["Libya","0,3860"],["Libya Mobile","0,3938"],["Liechtenstein","0,1926"],["Liechtenstein Mobile Mobilkom","0,2569"],["Liechtenstein Mobile Orange","0,2569"],["Liechtenstein Mobile Others","0,2569"],["Liechtenstein Mobile Swisscom","0,2569"],["Liechtenstein Mobile Tele2","0,2569"],["Lithuania","0,1069"],["Lithuania Mobile Bite","0,1811"],["Lithuania Mobile Others","0,1811"],["Lithuania Mobile Tele2","0,1811"],["Luxembourg","0,0864"],["Luxembourg Mobile LUX","0,1166"],["Luxembourg Mobile Tango","0,1166"],["Luxembourg Mobile VOX","0,1166"],["Macau","0,2556"],["Macau Mobile","0,2556"],["Macedonia","0,2044"],["Macedonia Mobile Cosmofon","0,4588"],["Macedonia Mobile NOV","0,4588"],["Macedonia Mobile Others","0,4588"],["Madagascar","0,9926"],["Madagascar Mobile Madacom","0,7105"],["Madagascar Mobile Orange","0,7105"],["Madagascar Mobile Others","0,7105"],["Madagascar Mobile Telma","0,7105"],["Malawi / Mobile","0,3933"],["Malawi Mobile Others","0,0864"],["Malawi Mobile Zain","0,0864"],["Malaysia","0,1080"],["Malaysia Mobile Digi","0,0864"],["Malaysia Mobile Maxis","0,0864"],["Malaysia Mobile Others","0,0864"],["Maldives","1,1291"],["Mali","0,2863"],["Mali Mobile Orange","0,4640"],["Mali Mobile Others","0,4640"],["Malta","0,0712"],["Malta Mobile","0,1260"],["Marshall Islands","0,1080"],["Martinique","0,1584"],["Martinique Mobile Digicel","0,3637"],["Martinique Mobile Orange","0,3637"],["Martinique Mobile Others","0,3637"],["Mauritania","0,6460"],["Mauritania Mobile","0,7911"],["Mauritania Mtel MMobile","0,7911"],["Mauritius","0,2175"],["Mauritius Mobile","0,2093"],["MEXICO","0,0221"],["Mexico Mobile","0,0733"],["Micronesia","0,6555"],["Moldova","0,4313"],["Moldova Mobile","0,3793"],["Monaco","0,1260"],["Monaco Mobile EX","0,3583"],["Monaco Mobile KFOR","0,3583"],["Monaco Mobile Others","0,3583"],["Mongolia","0,1015"],["Montenegro","0,4956"],["Montenegro Mobile","0,5339"],["Montserrat","0,5555"],["Morocco","0,1938"],["MOROCCO MOBILE IAM","0,5684"],["Morocco OLO Wana","0,5684"],["Mozambique","0,1638"],["Mozambique Mobile","0,3422"],["Myanmar","0,2748"],["Myanmar Mobile","0,2548"],["Namibia","0,2335"],["Namibia Mobile","0,2423"],["Nauru","1,6937"],["Nepal","0,2599"],["Nepal Mobile","0,2438"],["Netherland Antilles","0,2081"],["Netherlands","0,0473"],["Netherlands Antilles Mobile","0,2145"],["Netherlands Antilles Saint Marteens Mobile ECC","0,2801"],["Netherlands Mobile KPN","0,1310"],["Netherlands Mobile Vodafone","0,1310"],["Netherlands Premium","12,5518"],["New Caledonia","0,3313"],["New Caledonia Mobile","0,3313"],["New Zealand","0,0769"],["New Zealand Mobile","0,1577"],["Nicaragua","0,1879"],["Nicaragua Mobile Bellsouth","0,3468"],["Nicaragua Mobile Movistar","0,3469"],["Nicaragua Mobile Others","0,3468"],["Niger","0,4561"],["Niger Mobile Celtel","0,3742"],["Niger Mobile Others","0,3742"],["Nigeria","0,2326"],["Nigeria Lagos","0,2326"],["Nigeria Mobile Globacom","0,1235"],["Nigeria Mobile MTN","0,1553"],["Nigeria Mobile Others","0,2137"],["Nigeria Mobile Zain","0,2137"],["Niue","2,8463"],["North Korea","0,8625"],["Northern Mariana Islands","0,1271"],["Norway","0,1040"],["Norway Mobile Netcom","0,0769"],["Norway Mobile Others","0,0769"],["Norway Mobile Tele2","0,0769"],["Oman","0,3068"],["Pakistan","0,1625"],["Pakistan Islamabad","0,1625"],["Pakistan Karachi","0,1625"],["Pakistan Lahore","0,1625"],["Pakistan Mobile","0,1625"],["Palau","0,7386"],["Palestine","0,2356"],["Palestine Mobile","0,2286"],["Panama","0,0994"],["Panama Mobile","0,2844"],["Papua New Guinea","1,4579"],["Paraguay","0,1159"],["Paraguay Asuncion","0,1159"],["Paraguay Mobile","0,2160"],["Paraguay Mobile Personal","0,2160"],["Paraguay Mobile Tigo","0,2160"],["Paraguay Mobile VOX","0,2160"],["Peru","0,0630"],["Peru Mobile","0,1080"],["Peru Mobile Lima","0,1080"],["Peru Rural","0,0911"],["Philippines","0,2570"],["Philippines Manila","0,2740"],["Philippines Mobile Globe","0,2111"],["Philippines Mobile Smart","0,2250"],["POLAND","0,1153"],["Poland Mobile Era","0,1908"],["Poland Mobile Others","0,8409"],["Poland Mobile P4","0,1908"],["Portugal","0,0498"],["Portugal Azores","0,0498"],["Portugal Lisbon","0,0498"],["Portugal Madeira","0,0498"],["Portugal Mobile Optimus","0,0775"],["Portugal Mobile Others","0,0775"],["Portugal Mobile TMN","0,0775"],["Portugal Mobile Vodafone","0,0775"],["PUERTO RICO","0,0605"],["Qatar","0,2118"],["Qatar Mobile","0,2082"],["Romania","0,0347"],["Romania Bucharest","0,1210"],["Romania Mobile","0,0828"],["Romania Mobile Cosmote","0,0828"],["Romania Mobile Orange","0,0828"],["Romania Mobile Telemobil","0,0828"],["Romania Mobile Vodafone","0,0828"],["Russia","0,1022"],["Russia / Moscow","0,1222"],["Russia / Overlay","0,1499"],["Russia / San Petesburg","0,1298"],["Russian Federation Mobile","0,3263"],["Rwanda","0,4272"],["Rwanda Mobile","0,4272"],["Saint Helena","3,5190"],["Saint Kitts and Nevis","0,3443"],["Saint Lucia","0,3672"],["Saint Pierre and Miquelon","0,6691"],["Saint Vincent Grenadines","0,4497"],["Samoa","0,1611"],["Samoa Mobile","0,3627"],["San Marino","0,1216"],["Sao Tome and Principe","2,6127"],["Saudi Arabia","0,1800"],["Saudi Arabia Mobile Mobily","0,2731"],["Saudi Arabia Mobile Others","0,2731"],["Saudi Arabia Mobile STC","0,2731"],["Saudi Arabia Mobile Zain","0,2731"],["Saudi Arabia Riyadh","0,2731"],["Senegal","0,6421"],["Seychelles","0,7406"],["Sierra Leone","0,6900"],["Sierra Leone Mobile Africel","0,6688"],["Sierra Leone Mobile Celtel","0,6688"],["Sierra Leone Mobile Commium","0,6688"],["Sierra Leone Mobile Datatel","0,6688"],["Sierra Leone Mobile Millicom","0,6688"],["Sierra Leone Mobile Others","0,6688"],["Singapore","0,0567"],["Singapore Mobile","0,0567"],["Singapore VoIP","0,0756"],["Slovakia","0,1296"],["Slovakia Bratislava","0,1555"],["Slovakia Mobile EuroTel","0,2552"],["SLOVAKIA MOBILE ORANGE","0,2552"],["Slovakia Mobile Others","0,2552"],["Slovenia","0,0907"],["Slovenia Mobile IPKO","0,1728"],["Slovenia Mobile Mobitel","0,1728"],["Slovenia Mobile Others","0,1728"],["Slovenia Mobile SI","0,1728"],["Solomon Islands","1,9849"],["Somalia","0,6210"],["Somalia Mobile","0,6210"],["South Africa","0,2117"],["South Africa Cape Town","0,2117"],["South Africa Johannesburg","0,2550"],["South Africa Mobile MTN","0,2550"],["South Africa Mobile Others","0,1384"],["South Africa Mobile Vodacom","0,2149"],["South Korea","0,1216"],["South Korea Mobile","0,1262"],["Sri Lanka","0,2536"],["Sri Lanka Mobile","0,2943"],["Sudan","0,2792"],["Sudan Mobile","0,3277"],["Surinam","0,2379"],["Suriname Mobile","0,2760"],["Swaziland","0,2010"],["Swaziland Mobile","0,2703"],["SWEDEN","0,0365"],["Sweden Mobile Comviq","0,1216"],["Sweden Mobile Hi3G","0,1216"],["SWEDEN MOBILE OTHERS","0,1216"],["SWEDEN MOBILE TELENOR","0,1216"],["Switzerland","0,1222"],["Switzerland Mobile","0,2345"],["Switzerland Mobile Orange","0,1987"],["Switzerland Mobile Sunrise","0,1987"],["Switzerland Mobile Swisscom","0,1638"],["Switzerland Mobile Tele2","0,2345"],["Syria","0,2984"],["Syria Mobile","0,2366"],["Taiwan","0,1323"],["Taiwan Mobile","0,1849"],["Tajikistan","0,2722"],["Tajikistan Mobile","0,2237"],["Tanzania","0,4057"],["Tanzania Mobile Celtel","0,4057"],["Tanzania Mobile Others","0,4057"],["Tanzania Mobile Tigo","0,4057"],["Tanzania Mobile Vodacom","0,4057"],["Thailand","0,2520"],["Thailand Mobile","0,2520"],["Togo","0,4704"],["Tokelau","1,5732"],["Tonga","1,3110"],["Trinidad and Tobago","0,2858"],["Trinidad and Tobago Mobile","0,3755"],["Tunisia","1,0005"],["Tunisia Mobile Orange","1,0005"],["Tunisia Mobile Others","1,0005"],["Tunisia Mobile Tunisiana","1,0005"],["Tunisia Tunis","1,0005"],["Turkey","0,4743"],["Turkey / Mobile Other","0,7446"],["Turkey Adana","0,4743"],["Turkey Ankara","0,4743"],["Turkey Antalya","0,4743"],["Turkey Istanbul","0,4743"],["Turkey Izmir","0,4743"],["Turkmenistan","0,2131"],["Turks and Caicos","0,3375"],["Tuvalu","2,5909"],["UAE","0,2044"],["UAE Abu Dhabi","0,2044"],["UAE Dubai","0,2044"],["UAE Mobile DU","0,2044"],["UAE Mobile Others","0,2044"],["Uganda","0,4813"],["Uganda Kampala","0,4011"],["Ukraine","0,1954"],["Ukraine Mobile","0,9470"],["Ukraine Mobile Astelit","0,9470"],["Ukraine Mobile Beeline","0,9470"],["Ukraine Mobile Kievstar","0,9470"],["Ukraine Mobile UMC","0,9470"],["United Kingdom","0,0315"],["United Kingdom London","0,0315"],["United Kingdom Mobile","0,2263"],["United Kingdom Mobile H3G","0,0611"],["United Kingdom Mobile Lycamobile","0,0611"],["United Kingdom Mobile O2","0,0611"],["United Kingdom Mobile Orange","0,0611"],["United Kingdom Mobile Others","0,0611"],["United Kingdom Mobile PNS","0,0611"],["United Kingdom Mobile TMobile","0,0611"],["United Kingdom Mobile Vodafone","0,0611"],["United Kingdom Special NTS 843","0,2138"],["United Kingdom Special NTS 844","0,2138"],["United Kingdom Special NTS 845","0,2138"],["United Kingdom Special NTS 870","0,2138"],["Universal Personal Telecom","0,2138"],["Uruguay","0,1321"],["Uruguay Mobile","0,2514"],["Uruguay Mobile Ancel","0,2514"],["Uruguay Mobile Claro","0,2514"],["Uruguay Mobile Movistar","0,2514"],["Uruguay Montevideo","0,1199"],["USA","0,0561"],["USA Lata 834 Hawaii","0,1008"],["Uzbekistan","0,2191"],["Vanuatu","1,2144"],["Vatican City","0,1445"],["Venezuela","0,1399"],["Venezuela Caracas","0,1399"],["Venezuela Mobile","0,1890"],["Venezuela Mobile Movilnet","0,1672"],["Vietnam","0,1496"],["Vietnam Hanoi","0,1557"],["Vietnam Ho Chi Minh City","0,1557"],["Vietnam Mobile","0,1557"],["Virgin Islands","0,1287"],["Wallis and Futuna","1,0868"],["Yemen","1,6646"],["Zambia","0,4264"],["Zambia Mobile","0,4264"],["Zimbabwe","0,4485"],["Zimbabwe Mobile Econet","0,6724"],["Zimbabwe Mobile Others","0,6724"],["Zimbabwe Mobile Telecel","0,6724"]];
+const CLAVE = "nimbus-locale";
+const IDIOMAS = ["ca","es","en"];
+
+function guardado() { try { const v = localStorage.getItem(CLAVE); return IDIOMAS.includes(v) ? v : null; } catch (e) { return null; } }
+function delNavegador() {
+  for (const x of (navigator.languages || [navigator.language || ""])) {
+    const c = String(x).slice(0,2).toLowerCase(); if (IDIOMAS.includes(c)) return c;
+  } return null;
+}
+function resolver() {
+  const p = new URLSearchParams(location.search).get("lang");
+  return IDIOMAS.includes(p) ? p : (guardado() || delNavegador() || "ca");
+}
+const normalizar = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+
+const tbNac = document.querySelector("#t-nac tbody");
+const tbInt = document.querySelector("#t-int tbody");
+const fNac = NACV.map(v => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = '<td class="d"></td><td>' + v[0] + ' €</td><td>' + v[1] + ' €</td>';
+  tbNac.appendChild(tr); return tr;
 });
+const fInt = INTL.map(v => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = '<td class="d">' + v[0] + '</td><td>0</td><td>' + v[1] + '</td>';
+  tbInt.appendChild(tr); return tr;
+});
+const normInt = INTL.map(v => normalizar(v[0]));
+
+let loc = resolver(), normNac = [];
+
+function pintar(l) {
+  loc = l;
+  document.documentElement.lang = l;
+  const t = UI[l], nom = NACD[l];
+  for (const k of ["titulo","sub1","sub2","fecha","h2nac","h2int","notaInt","nota1","nota2"])
+    document.getElementById(k).textContent = t[k];
+  document.getElementById("hDest1").textContent = t.hDest;
+  document.getElementById("hDest2").textContent = t.hDest;
+  document.getElementById("hEst1").textContent = t.hEst;
+  document.getElementById("hEst2").textContent = t.hEst;
+  document.getElementById("hMin1").textContent = t.hMin;
+  document.getElementById("hMin2").textContent = t.hMinSin;
+  document.title = t.titulo + " - Nimbus Telecom";
+  document.getElementById("buscador").placeholder = t.buscar;
+  document.getElementById("vacio").textContent = t.vacio;
+  nom.forEach((n, i) => { fNac[i].cells[0].textContent = n; });
+  const orden = nom.map((_, i) => i).sort((a, b) => nom[a].localeCompare(nom[b], l));
+  orden.forEach(i => tbNac.appendChild(fNac[i]));
+  normNac = nom.map(normalizar);
+  document.querySelectorAll("#idiomas button").forEach(b =>
+    b.setAttribute("aria-pressed", String(b.dataset.loc === l)));
+  filtrar(document.getElementById("buscador").value);
+}
+
+function filtrar(q) {
+  const f = normalizar(q || "");
+  let n = 0, a = 0, b = 0;
+  fNac.forEach((tr, i) => { const ok = !f || normNac[i].includes(f); tr.style.display = ok ? "" : "none"; if (ok) a++; });
+  fInt.forEach((tr, i) => { const ok = !f || normInt[i].includes(f); tr.style.display = ok ? "" : "none"; if (ok) b++; });
+  n = a + b;
+  document.getElementById("t-nac").parentElement.style.display = a ? "" : "none";
+  document.getElementById("h2nac").style.display = a ? "" : "none";
+  document.getElementById("t-int").parentElement.style.display = b ? "" : "none";
+  document.getElementById("h2int").style.display = b ? "" : "none";
+  document.getElementById("notaInt").style.display = b ? "" : "none";
+  document.getElementById("vacio").style.display = n ? "none" : "block";
+  const t = UI[loc];
+  document.getElementById("contador").textContent = f ? n + " " + (n === 1 ? t.res1 : t.res) : "";
+}
+
+document.getElementById("idiomas").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  try { localStorage.setItem(CLAVE, b.dataset.loc); } catch (err) {}
+  pintar(b.dataset.loc);
+});
+document.getElementById("buscador").addEventListener("input", e => filtrar(e.target.value));
+pintar(loc);
 </script>
 </body>
 </html>
